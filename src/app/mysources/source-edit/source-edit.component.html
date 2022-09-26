@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-sm-4"><h1>Your Source</h1></div>
+      <div class="col-sm-8">
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+          <strong>Information: </strong>You have made changes. And unsaved changes will be lost!!
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top img-thumbnail" src="../../../assets/source.png">
+          <div class="card-body">
+            <div>
+              <strong>Name:</strong>
+              <p>{{this.source.name}}</p>
+            </div>
+          </div>
+          <div class="card-footer">
+               <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="tab-panel">
+          <!-- <tabset class="member-tabset">
+            <tab heading="Edit Source">
+              <form #editForm="ngForm" id="editForm">
+                <h4>Description</h4>
+                <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="source.introduction"></textarea>
+                <h4>Looking For:</h4>
+                <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="source.lookingFor"></textarea>
+                <h4>Interests:</h4>
+                <textarea name="interests" rows="6" class="form-control" [(ngModel)]="source.interests"></textarea>
+                <h4>Location Details:</h4>
+                <div class="form-inline">
+                  <label for="city">City</label>
+                  <input type="text" name="city" class="form-control" [(ngModel)]="source.city">
+                  <label for="city">Country</label>
+                  <input type="text" name="country" class="form-control" [(ngModel)]="source.country">
+                </div>
+              </form>
+  
+            </tab>  
+          </tabset> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
