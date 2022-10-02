@@ -2,8 +2,10 @@ import { SourceMessages } from "./sourceMessages";
 import { SourceTopic } from "./sourceTopics";
 
 export interface Source {
-    sourceId: number;
+    id: number;
     name: string;
-    sourceMessages: SourceMessages[];
-    sourceTopics: SourceTopic[]
+    apiKey: string;
+    creationDate: Date;
+    messages: SourceMessages[];
+    topics: SourceTopic[]
   }

@@ -8,12 +8,12 @@
     </div>
 
     <div class="form-group">
-        <input type="text" [ngClass]="{'is-invalid': registerForm.get('firstName')!.touched && registerForm.get('firstName')!.errors}" class="form-control is-invalid" formControlName="firstname" placeholder="Username" >
+        <input type="text" [ngClass]="{'is-invalid': registerForm.get('firstName')!.touched && registerForm.get('firstName')!.errors}" class="form-control is-invalid" formControlName="firstname" placeholder="Firstname" >
         <div class="invalid-feedback" >Please choose a firstname</div>
     </div>
 
     <div class="form-group">
-        <input type="text" [ngClass]="{'is-invalid': registerForm.get('lastName')!.touched && registerForm.get('lastName')!.errors}" class="form-control is-invalid" formControlName="lastname" placeholder="Username" >
+        <input type="text" [ngClass]="{'is-invalid': registerForm.get('lastName')!.touched && registerForm.get('lastName')!.errors}" class="form-control is-invalid" formControlName="lastname" placeholder="Lastname" >
         <div class="invalid-feedback" >Please choose a lastname</div>
     </div>
   

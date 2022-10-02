@@ -1,1 +1,27 @@
-<p>source-detail works!</p>
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <div>
+              <strong>Source Name:</strong>
+              <p>{{source.name}}</p>
+            </div>
+            <div>
+              <strong>API Key:</strong>
+              <p>{{source.apiKey}}</p>
+            </div>
+            <div>
+              <strong>Last Active:</strong>
+              <p>{{source.creationDate | date:'mediumDate'}}</p>
+            </div>
+            <div>
+              <strong>Messages Count:</strong>
+              <p>{{source.messages.length}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

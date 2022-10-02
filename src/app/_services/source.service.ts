@@ -17,7 +17,7 @@ constructor(private http: HttpClient) { }
     return this.http.post(this.baseUrl + 'source/AddOrUpdateSource', source);
   }
 
-  getSource(Id: number){
-    return this.http.get(this.baseUrl + `source/GetSourceDetails?Id=${Id}`);
+  getSource(Id: number):Observable<Source>{
+    return this.http.get<Source>(this.baseUrl + `source/GetSourceDetails?Id=${Id}`);
   }
 }

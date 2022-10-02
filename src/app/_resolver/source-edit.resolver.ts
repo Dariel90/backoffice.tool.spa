@@ -13,10 +13,10 @@ export class SourceEditResolver implements Resolve<Source> {
               private router: Router, private alertify: AlertifyService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.sourceService.getSource(this.authService.sourceId).pipe(
+    return this.sourceService.getSource(route.params['id']).pipe(
       catchError(error => {
         this.alertify.error('Problem retreiving data');
-        this.router.navigate(['/members']);
+        this.router.navigate(['/home']);
         return of(null);
       })
     );

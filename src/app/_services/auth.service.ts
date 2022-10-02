@@ -53,17 +53,14 @@ register(user: RegisterUserDto) {
   return this.http.post(this.baseUrl + 'register', user);
 }
 
-getExpiration() {
-  const expiration = localStorage.getItem("expires_at");
-  if(expiration == null) return moment();
-  const expiresAt = JSON.parse(expiration);
-  return moment(expiresAt);
-}   
-
 loggedIn() {
   const token = localStorage.getItem('token');
-  if(token == null) return false;
-  return moment().isBefore(this.getExpiration());
+  const jwtToken = this.decodedToken;
+  if(jwtToken == null) return false;
+  var current_time = new Date().getTime() / 1000;
+  if (current_time > jwtToken.exp)
+    return false;
+  return true;
 }
 
 logout() {
