@@ -1,20 +1,20 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/home']">Dating App</a>
+      <a class="navbar-brand" [routerLink]="['/home']">Timeline Backoffice Admin App</a>
   
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
         <li  class="nav-item" routerLinkActive="active" >
-          <a class="nav-link" [routerLink]="['/source']">My Source</a>
+          <a class="nav-link" [routerLink]="['/source',]">My Source</a>
         </li>
-        <!-- <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/messages']" >My Messages</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/messages']">My Messages</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/properties']">My Properties</a>
         </li>
         <li class="nav-item" routerLinkActive="active" *appHasRole="['Admin', 'Moderator']">
           <a class="nav-link" [routerLink]="['/admin']">Admin</a>
-        </li> -->
+        </li>
       </ul>
   
       <div *ngIf="loggedIn()" class="dropdown" dropdown>
