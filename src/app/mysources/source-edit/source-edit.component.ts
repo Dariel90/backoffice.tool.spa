@@ -3,7 +3,6 @@ import { AlertifyService } from './../../_services/alertify.service';
 import { SourceService } from './../../_services/source.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { Source } from 'src/app/_models/source';
 import { NgForm } from '@angular/forms';
 import { AddUpdateSource } from 'src/app/_models/addUpdateSource';
 
@@ -15,7 +14,6 @@ import { AddUpdateSource } from 'src/app/_models/addUpdateSource';
 export class SourceEditComponent implements OnInit {
   @ViewChild('editForm', {static: true} ) editForm: NgForm;
   source: AddUpdateSource;
-  photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {

@@ -15,6 +15,9 @@ export class NavComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    if(this.sourceId == undefined){
+      this.sourceId = this.authService.getSourceFromStorage();
+    }
   }
 
   login() {

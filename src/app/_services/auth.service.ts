@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LoginDto } from '../_models/loginDto';
 import * as moment from 'moment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { LogedUserInfo } from '../_models/loginResultDto';
+import { LogedUserInfo, LoginResultDto } from '../_models/loginResultDto';
 import { RegisterUserDto } from '../_models/registerUserDto';
 
 @Injectable({
@@ -46,7 +46,12 @@ private setSession(authResult: any) {
   this.logedUser = authResult.user;
   this.sourceId = authResult.user.sourceId;
   this.nameid = this.decodedToken.nameid;
-}          
+}  
+
+getSourceFromStorage():number{
+  const user = JSON.parse(this.getUser() as string);
+  return user.sourceId as number;
+}
 
 
 register(user: RegisterUserDto) {
@@ -81,6 +86,10 @@ roleMatch(allowedRoles: any[]): boolean {
 
 getToken() {
   return localStorage.getItem('token');
+}
+
+getUser() {
+  return localStorage.getItem('user');
 }
 
 }

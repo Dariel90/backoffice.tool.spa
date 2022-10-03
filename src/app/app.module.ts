@@ -24,7 +24,12 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './_services/auth.interceptor';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PaginationModule,PaginationConfig  } from 'ngx-bootstrap/pagination';
 import { SourceDetailsResolver } from './_resolver/source-detail.resolver';
+import { MessageListComponent } from './mymessage/message-list/message-list.component';
+import { MessageListResolver } from './_resolver/message-list.resolver';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -45,6 +50,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     PropertyListComponent,
     SourceAddComponent,
     HasRoleDirective,
+    MessageListComponent,
   ],
   imports: [
     HttpClientModule,
@@ -52,7 +58,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    BsDropdownModule.forRoot(),    
+    BsDropdownModule.forRoot(),
+    NgxPaginationModule,
+    PaginationModule,
     RouterModule.forRoot(appRoutes),    
     JwtModule.forRoot({
       config: {
@@ -66,6 +74,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     }),
   ],
   providers: [
+    BsModalService,
+    PaginationConfig,
     AuthService,
     AlertifyService,
     AlertifyService,
@@ -78,7 +88,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     PropertyListResolver,
     SourceEditResolver,
-    SourceDetailsResolver
+    SourceDetailsResolver,
+    MessageListResolver
   ],
   bootstrap: [AppComponent]
 })

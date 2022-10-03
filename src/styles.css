@@ -19,3 +19,12 @@
     text-decoration: none;
     background-color: #0086D7;
 }
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"), url(../src/assets/fonts/Poppins-Regular.ttf) format("truetype");
+}
+
+.container{
+    font-family: "Poppins";
+}
