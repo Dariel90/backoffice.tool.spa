@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Source } from '../_models/source';
+import { AddUpdateSource } from '../_models/addUpdateSource';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class SourceService {
   baseUrl = environment.apiUrl;
 constructor(private http: HttpClient) { }
 
-  addOrUpdateSource(source: Source) {
+  addOrUpdateSource(source: AddUpdateSource) {
     return this.http.post(this.baseUrl + 'source/AddOrUpdateSource', source);
   }
 

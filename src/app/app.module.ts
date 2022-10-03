@@ -23,6 +23,8 @@ import { SourceAddComponent } from './mysources/source-add/source-add.component'
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './_services/auth.interceptor';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SourceDetailsResolver } from './_resolver/source-detail.resolver';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -46,9 +48,11 @@ export class CustomHammerConfig extends HammerGestureConfig  {
   ],
   imports: [
     HttpClientModule,
-    BrowserModule,
+    BrowserModule,    
+    BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),    
     RouterModule.forRoot(appRoutes),    
     JwtModule.forRoot({
       config: {
@@ -73,7 +77,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     PropertyListResolver,
-    SourceEditResolver
+    SourceEditResolver,
+    SourceDetailsResolver
   ],
   bootstrap: [AppComponent]
 })

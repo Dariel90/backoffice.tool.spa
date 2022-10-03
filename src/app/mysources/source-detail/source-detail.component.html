@@ -1,24 +1,28 @@
 <div class="container mt-4">
     <div class="row">
       <div class="col-sm-4">
-        <div class="card">
+        <div class="card text-center">
           <div class="card-body">
             <div>
-              <strong>Source Name:</strong>
-              <p>{{source.name}}</p>
+              <h5 class="card-title">{{source.name}}</h5>
+              <!-- <strong>Source Name:</strong>
+              <p></p> -->
             </div>
             <div>
               <strong>API Key:</strong>
               <p>{{source.apiKey}}</p>
             </div>
             <div>
-              <strong>Last Active:</strong>
+              <strong>Creation Date:</strong>
               <p>{{source.creationDate | date:'mediumDate'}}</p>
             </div>
             <div>
               <strong>Messages Count:</strong>
               <p>{{source.messages.length}}</p>
             </div>
+          </div>
+          <div class="card-footer text-muted">
+            <a [routerLink]="['/source/',source.id,'edit']" class="btn btn-primary my-btn"><i class="fa fa-pencil"></i> Edit</a>
           </div>
         </div>
       </div>

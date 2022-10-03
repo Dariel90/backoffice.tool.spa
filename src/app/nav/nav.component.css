@@ -1,3 +1,11 @@
 .dropdown-toggle{
     cursor: pointer;
 }
+
+.my-company-logo{
+    width: 125px;
+}
+
+nav.my-bg-primary{
+    background-color: #0f4c71;
+}

@@ -3,3 +3,19 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+
+.my-btn{
+    background-color: #0086D7;
+    border-color: #0086D7;
+}
+
+.my-btn:hover{
+    background-color: #0086D7;
+    border-color: #0086D7;
+}
+
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0086D7;
+}

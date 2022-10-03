@@ -1,10 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+<nav class="navbar navbar-expand-md navbar-dark my-bg-primary">
     <div class="container">
+      <a class="navbar-brand" href="#">
+        <img class="my-company-logo" src="../../assets/logo_ic-banking.svg" alt="" width="50" height="30" >
+      </a>
       <a class="navbar-brand" [routerLink]="['/home']">Timeline Backoffice Admin App</a>
   
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
         <li  class="nav-item" routerLinkActive="active" >
-          <a class="nav-link" [routerLink]="['/source',]">My Source</a>
+          <a class="nav-link" [routerLink]="['/source/', this.sourceId]">My Source</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/messages']">My Messages</a>
@@ -22,7 +25,7 @@
           Welcome {{authService.decodedToken.unique_name | titlecase}}
         </a>
         <div class="dropdown-menu mt-3" *bsDropdownMenu>
-          <a class="dropdown-item" [routerLink]="['/source/edit'] "><i class="fa fa-user"></i>Edit Source</a>
+          <a class="dropdown-item" [routerLink]="['/source/',this.sourceId,'edit'] "><i class="fa fa-user"></i>Edit Source</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
         </div>

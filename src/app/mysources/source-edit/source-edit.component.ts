@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Source } from 'src/app/_models/source';
 import { NgForm } from '@angular/forms';
+import { AddUpdateSource } from 'src/app/_models/addUpdateSource';
 
 @Component({
   selector: 'app-member-edit',
@@ -13,7 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SourceEditComponent implements OnInit {
   @ViewChild('editForm', {static: true} ) editForm: NgForm;
-  source: Source;
+  source: AddUpdateSource;
   photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -28,13 +29,18 @@ export class SourceEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       // tslint:disable-next-line: no-string-literal
-      this.source = data['user'];
+      this.source = {
+        sourceId: data['source'].id,
+        name: data['source'].name,
+        sourceMessages : [],
+        sourceTopics: []        
+      }
     });
   }
 
-  updateSource() {
+  addOrUpdateSource() {
     this.sourceService.addOrUpdateSource(this.source).subscribe( (next: any) => {
-      this.alertify.success('User updated successfully');
+      this.alertify.success('Source updated successfully');
       this.editForm.reset(this.source);
     }, (error: string) => {
       this.alertify.error(error);
