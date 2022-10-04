@@ -4,7 +4,7 @@
         <h1 class="text-center">Message List</h1>  
         <div class="row">
             <div class="col-md-12 mb-4">
-                <button class="btn btn-success" (click)="showAddMessageForm()">Add New Message</button>
+                <a [routerLink]="['/message/add']"><button class="btn btn-success">Add New Message</button></a>
             </div>
           </div>      
         <table class="table table-bordered table-striped table-hover">
@@ -28,11 +28,11 @@
                   };
             let i = index
           ">
-              <td>{{ this.message.id }}</td>
+              <td scope="row" class="text-center">{{ this.message.id }}</td>
               <td>{{ this.message.name }}</td>
               <td>{{ this.message.description }}</td>
               <td>{{ this.message.kafkaTopic }}</td>
-              <td class="mx-auto">
+              <td class="mx-auto text-center">
                 <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditMessageForm(message)"><i class="fa fa-pencil"></i></button>  
                 <button type="button" class="btn btn-danger btn-sm mr-2" (click)="removeMessage(this.message.id)"><i class="fa fa-trash"></i></button>
               </td>
@@ -48,17 +48,7 @@
 
         
   
-        <!-- <div class="mt-4">
-          <form #editForm="ngForm" (ngSubmit)="this.saveMessage()" id="editForm" *ngIf="messageForm">
-            <h2>Add New Message</h2>
-            <p>Messge Name: <input type="text" name="name" [(ngModel)]="newMessage.name" /></p>
-            <p>Description: <input type="text" name="description" [(ngModel)]="newMessage.description" /></p>
-            <p>Kafka Topic: <input disabled="disabled" type="text" name="description" [(ngModel)]="this.sourceTopic.kafkaTopic" /></p>
-            <p>
-              <button [disabled]="!editForm.dirty" form="editForm" type="button" class="btn btn-success my-btn btn-block mr-2">Save Changes</button>
-              <button type="button" class="btn btn-warning" (click)="cancelNewMessage()">Cancel</button>
-            </p>
-          </form> -->
+        
   
           <!-- <form *ngIf="editMessageForm">
             <h2>Edit Message Details</h2>

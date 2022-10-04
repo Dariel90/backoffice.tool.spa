@@ -1,5 +1,5 @@
 export interface SourceTopicDetails {
     id:number;
-    kafkaTopic: string;
+    topicName: string;
     sourceId: number
   }

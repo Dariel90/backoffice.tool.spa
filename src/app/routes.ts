@@ -10,6 +10,7 @@ import { SourceDetailComponent } from './mysources/source-detail/source-detail.c
 import { SourceDetailsResolver } from './_resolver/source-detail.resolver';
 import { MessageListComponent } from './mymessage/message-list/message-list.component';
 import { MessageListResolver } from './_resolver/message-list.resolver';
+import { MessageAddComponent } from './mymessage/message-add/message-add.component';
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     {
@@ -18,6 +19,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
           { path: 'messages', component: MessageListComponent, resolve: { messages: MessageListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'message/add', component: MessageAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'properties', component: PropertyListComponent, resolve: { properties: PropertyListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'source/:id', component: SourceDetailComponent, resolve: { source: SourceDetailsResolver}, data: { roles: ['Admin', 'SourceAdmin']}},
           { path: 'source/:id/edit', component: SourceEditComponent, resolve: { source: SourceEditResolver}, canDeactivate: [PreventUnsavedChanges<SourceEditComponent>], data: { roles: ['Admin', 'SourceAdmin']}},

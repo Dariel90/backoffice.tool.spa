@@ -30,6 +30,7 @@ import { MessageListComponent } from './mymessage/message-list/message-list.comp
 import { MessageListResolver } from './_resolver/message-list.resolver';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { MessageAddComponent } from './mymessage/message-add/message-add.component';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -51,6 +52,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     SourceAddComponent,
     HasRoleDirective,
     MessageListComponent,
+    MessageAddComponent,
   ],
   imports: [
     HttpClientModule,

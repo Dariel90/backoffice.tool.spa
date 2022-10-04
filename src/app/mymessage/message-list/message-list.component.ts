@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from 'src/app/_models/message';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -23,7 +23,7 @@ export class MessageListComponent implements OnInit {
   tableSize: number = 7;
   tableSizes: any = [3, 6, 9, 12];
 
-  constructor(private messageService: MessageService, private alertify: AlertifyService, private route: ActivatedRoute, private authService: AuthService, private topicService: TopicService) { }
+  constructor(private router: Router,private messageService: MessageService, private alertify: AlertifyService, private route: ActivatedRoute, private authService: AuthService, private topicService: TopicService) { }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -62,7 +62,7 @@ export class MessageListComponent implements OnInit {
   }
 
   showAddMessageForm() {
-    
+    this.router.navigate(['/message/add',this.authService.getSourceFromStorage()]);
 
   }
 

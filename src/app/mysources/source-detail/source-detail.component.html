@@ -1,31 +1,32 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="card text-center">
-          <div class="card-body">
-            <div>
-              <h5 class="card-title">{{source.name}}</h5>
-              <!-- <strong>Source Name:</strong>
-              <p></p> -->
-            </div>
-            <div>
-              <strong>API Key:</strong>
-              <p>{{source.apiKey}}</p>
-            </div>
-            <div>
-              <strong>Creation Date:</strong>
-              <p>{{source.creationDate | date:'mediumDate'}}</p>
-            </div>
-            <div>
-              <strong>Messages Count:</strong>
-              <p>{{source.messages.length}}</p>
-            </div>
-          </div>
-          <div class="card-footer text-muted">
-            <a [routerLink]="['/source/',source.id,'edit']" class="btn btn-primary my-btn"><i class="fa fa-pencil"></i> Edit</a>
-          </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card mx-auto">
+        <div class="card-header text-center">
+          <h5>{{ source.name }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <p><strong>API Key: </strong>{{ source.apiKey }}</p>
+          </li>
+          <li class="list-group-item">
+            <p>
+              <strong>Creation Date:</strong
+              >{{ source.creationDate | date: "mediumDate" }}
+            </p>
+          </li>
+          <li class="list-group-item">
+            <p><strong>Messages Count:</strong>{{ source.messages.length }}</p>
+          </li>
+        </ul>
+        <div class="card-footer text-center gray-footer">
+          <a
+            [routerLink]="['/source/', source.id, 'edit']"
+            class="btn btn-primary my-btn"
+            ><i class="fa fa-pencil"></i> Edit</a
+          >
         </div>
       </div>
     </div>
   </div>
-  
+</div>

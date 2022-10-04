@@ -3,19 +3,22 @@
       <a class="navbar-brand" href="#">
         <img class="my-company-logo" src="../../assets/logo_ic-banking.svg" alt="" width="50" height="30" >
       </a>
-      <a class="navbar-brand" [routerLink]="['/home']">Timeline Backoffice Admin App</a>
+      <a class="navbar-brand" [routerLink]="['/home']">Backoffice Admin App</a>
   
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
         <li  class="nav-item" routerLinkActive="active" >
           <a class="nav-link" [routerLink]="['/source/', this.sourceId]">My Source</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/messages']">My Messages</a>
+          <a class="nav-link" [routerLink]="['/topic']">Kafka Topic</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/properties']">My Properties</a>
+          <a class="nav-link" [routerLink]="['/messages']">Messages</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *appHasRole="['Admin', 'Moderator']">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/properties']">Properties</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *appHasRole="['Admin']">
           <a class="nav-link" [routerLink]="['/admin']">Admin</a>
         </li>
       </ul>
