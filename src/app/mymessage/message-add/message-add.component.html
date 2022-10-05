@@ -1,42 +1,82 @@
 <div class="container mt-4">
-    <div class="row justify-content-center">
-      <h1>New Message</h1>      
-    </div>
-    <div class="row d-flex justify-content-center">
-      <div class="col-sm-4">
-        <div class="card">
-            <div class="card-header bg-transparent">
-                <div class="d-flex flex-row mb-0">
-                    <div class="col-sm-6">
-                        <img class="card-img-center img-thumbnail" src="../../../assets/message.png">
-                    </div>
-                    <div class="col-sm-6 mt-2 ">
-                        <div class="row">
-                            <button class="btn btn-info btn-sm" (click)="this.cleanInputs()"><i class="fa fas fa-plus-square"></i> New Message</button>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <a [routerLink]="['/messages']"><button class="btn btn-danger btn-sm"><i class="fa fa-sign-out"></i> Back</button></a>
-                        </div>
-                    </div>
-                </div>                
-            </div>          
-          <div class="card-body mt-2">
-            <form #editForm="ngForm" (ngSubmit)="this.addOrUpdateMessage()" id="editForm">
-                <p>Messge Name: <input #inputName type="text" class="form-control" name="name" [(ngModel)]="this.newMessage!.name" /></p>
-                <p>Description: <input type="text" class="form-control" name="description" [(ngModel)]="this.newMessage!.description" /></p>
-                <p>Kafka Topic: <input disabled="disabled" class="form-control" type="text" name="kafkaTopic" [(ngModel)]="this.newMessage.kafkaTopic" /></p>
-            </form>
-          </div>
-          <div class="card-footer">
-               <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
-          </div>
+  <div class="row justify-content-center">
+    <h1>New Message</h1>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header bg-transparent">
+            <div class="ml-5">
+                <img class="card-img-center img-thumbnail ml-5" src="../../../assets/message.png"> 
+            </div>
+        </div>
+        <div class="card-body mt-2">
+          <form
+            #editForm="ngForm"
+            (ngSubmit)="this.addOrUpdateMessage()"
+            id="editForm"
+          >
+            <div class="ml-5 d-flex justify-content-end">
+              <button
+                class="btn btn-info btn-sm ml-5"
+                (click)="this.cleanInputs()"
+              >
+                <i class="fa fas fa-plus-square"></i> Add New
+              </button>
+            </div>
+
+            <p>
+              Messge Name:
+              <input
+                #inputName
+                type="text"
+                class="form-control"
+                name="name"
+                [(ngModel)]="this.newMessage!.name"
+              />
+            </p>
+            <p>
+              Description:
+              <input
+                type="text"
+                class="form-control"
+                name="description"
+                [(ngModel)]="this.newMessage!.description"
+              />
+            </p>
+            <p>
+              Kafka Topic:
+              <input
+                disabled="disabled"
+                class="form-control"
+                type="text"
+                name="kafkaTopic"
+                [(ngModel)]="this.newMessage.kafkaTopic"
+              />
+            </p>
+          </form>
+        </div>
+        <div class="card-footer gray-footer">
+          <button
+            [disabled]="!editForm.dirty"
+            form="editForm"
+            class="btn btn-success btn-block"
+          >
+            <i class="fa fa-save"></i> Save Changes
+          </button>
+          <a [routerLink]="['/messages']"
+            ><button class="btn btn-danger btn-block mt-2">
+              <i class="fa fa-sign-out"></i> Back
+            </button></a
+          >
         </div>
       </div>
     </div>
-    <div class="row justify-content-center mt-2">
-        <div class="alert alert-info" *ngIf="editForm.dirty">
-            <strong>Information: </strong>You have made changes. And unsaved changes will be lost!!
-          </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="alert alert-info" *ngIf="editForm.dirty">
+      <strong>Information: </strong>You have made changes. And unsaved changes
+      will be lost!!
     </div>
   </div>
+</div>

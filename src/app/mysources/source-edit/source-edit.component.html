@@ -1,27 +1,52 @@
-<div class="container mt-4">
-    <div class="row">
-      <div class="col-sm-4"><h1>{{this.source.name}}</h1></div>
-      <div class="col-sm-8">
-        <div class="alert alert-info" *ngIf="editForm.dirty">
-          <strong>Information: </strong>You have made changes. And unsaved changes will be lost!!
+<div class="container mt-4 justify-content-center">
+  <div class="row justify-content-center">
+    <h1>{{ this.source.name }}</h1>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header bg-transparent">
+          <div class="ml-5">
+            <img
+              class="card-img-center ml-5 img-thumbnail"
+              src="../../../assets/source.png"
+            />
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="card">
-          <img class="card-img-center mx-auto img-thumbnail" src="../../../assets/source.png">
-          <div class="card-body">
-            <form #editForm="ngForm" (ngSubmit)="this.addOrUpdateSource()" id="editForm">
+        <div class="card-body">
+          <form
+            #editForm="ngForm"
+            (ngSubmit)="this.addOrUpdateSource()"
+            id="editForm"
+          >
+            <div class="mt-2">
               <h4>Name</h4>
-              <input type="text" name="name" rows="6" class="form-control" [(ngModel)]="source.name"/>
-            </form>
-          </div>
-          <div class="card-footer">
-               <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
-          </div>
+              <input
+                type="text"
+                name="name"
+                rows="6"
+                class="form-control"
+                [(ngModel)]="source.name"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="card-footer gray-footer mt-3">
+          <button
+            [disabled]="!editForm.dirty"
+            form="editForm"
+            class="btn btn-success btn-block"
+          ><i class="fa fa-save"></i>
+            Save Changes
+          </button>
         </div>
       </div>
     </div>
   </div>
-  
+  <div class="row justify-content-center mt-2">
+    <div class="alert alert-info" *ngIf="editForm.dirty">
+      <strong>Information: </strong>You have made changes. And unsaved changes
+      will be lost!!
+    </div>
+  </div>
+</div>

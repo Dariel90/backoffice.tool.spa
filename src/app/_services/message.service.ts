@@ -38,6 +38,10 @@ export class MessageService {
     );
   }
 
+  getMessage(Id: number):Observable<Message>{
+    return this.http.get<Message>(this.baseUrl + `message/GetMessageDetails?messageId=${Id}`);
+  }
+
   addOrUpdateMessage(message: AddUpdateMessage) {
     return this.http.post(this.baseUrl + 'message/addOrUpdateMessage', message);
   }

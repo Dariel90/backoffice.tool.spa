@@ -31,6 +31,10 @@ import { MessageListResolver } from './_resolver/message-list.resolver';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { MessageAddComponent } from './mymessage/message-add/message-add.component';
+import { MessageEditComponent } from './mymessage/message-edit/message-edit.component';
+import { MessageEditResolver } from './_resolver/message-edit.resolver';
+import { KafkaRegisterComponent } from './kafkatopic/kafka-register/kafka-register.component';
+import { KafkaTopicResolver } from './_resolver/kafkatopic-resolver.resolver';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -53,6 +57,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     HasRoleDirective,
     MessageListComponent,
     MessageAddComponent,
+    MessageEditComponent,
+    KafkaRegisterComponent,
   ],
   imports: [
     HttpClientModule,
@@ -91,7 +97,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     PropertyListResolver,
     SourceEditResolver,
     SourceDetailsResolver,
-    MessageListResolver
+    MessageListResolver,
+    MessageEditResolver,
+    KafkaTopicResolver
   ],
   bootstrap: [AppComponent]
 })

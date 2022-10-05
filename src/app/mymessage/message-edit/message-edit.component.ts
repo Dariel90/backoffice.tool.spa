@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AddUpdateMessage } from 'src/app/_models/addUpdateMessage';
 import { SourceTopicDetails } from 'src/app/_models/sourceTopicDetails';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -8,14 +9,15 @@ import { MessageService } from 'src/app/_services/message.service';
 import { TopicService } from 'src/app/_services/topic.service';
 
 @Component({
-  selector: 'app-message-add',
-  templateUrl: './message-add.component.html',
-  styleUrls: ['./message-add.component.css']
+  selector: 'app-message-edit',
+  templateUrl: './message-edit.component.html',
+  styleUrls: ['./message-edit.component.css']
 })
-export class MessageAddComponent implements OnInit {
+export class MessageEditComponent implements OnInit {
+
   @ViewChild("inputName") inputName : ElementRef;
   @ViewChild('editForm', {static: true} ) editForm: NgForm;
-  newMessage: AddUpdateMessage  = {
+  message: AddUpdateMessage  = {
     name: '',
     description: '',
     kafkaTopicId: 0,
@@ -32,40 +34,38 @@ export class MessageAddComponent implements OnInit {
     }
   }
   
-  constructor(private messageService: MessageService, private alertify: AlertifyService, private authService: AuthService, private topicService: TopicService) { }
+  constructor(private route: ActivatedRoute, private messageService: MessageService, private alertify: AlertifyService, private authService: AuthService, private topicService: TopicService) { }
 
-  ngOnInit(): void {
-    const sourceId: number = this.authService.getSourceFromStorage();
-    this.topicService.getSourceTopic(sourceId).subscribe(res => {
-      this.newMessage = {
-        name: '',
-        description: '',
-        kafkaTopicId: res.id,
-        kafkaTopic: res.topicName,
-        messageId : 0,       
-        sourceId: sourceId,
-        messageProperties: []
-      };
-    }, error => {
-      this.alertify.error(error);
+  ngOnInit(): void {    
+    this.route.data.subscribe(data => {
+      // tslint:disable-next-line: no-string-literal
+      this.message = {
+        sourceId: data['message'].sourceId,
+        name: data['message'].name,
+        description: data['message'].description,
+        kafkaTopic: data['message'].kafkaTopic,
+        messageId: data['message'].id,
+        kafkaTopicId: data['message'].kafkaTopicId,
+        messageProperties: data['message'].properties     
+      }
     });
   }
 
   addOrUpdateMessage() {
-    this.messageService.addOrUpdateMessage(this.newMessage).subscribe( (next: any) => {
-      this.alertify.success('Message created successfully');
-      this.editForm.reset(this.newMessage);
+    this.messageService.addOrUpdateMessage(this.message).subscribe( (next: any) => {
+      this.alertify.success('Message updated successfully');
+      this.editForm.reset(this.message);
     }, (error: string) => {
       this.alertify.error(error);
     });
   }
 
   cleanInputs(){
-    this.newMessage = {
+    this.message = {
       name: '',
       description: '',
-      kafkaTopicId: this.newMessage.kafkaTopicId,
-      kafkaTopic: this.newMessage.kafkaTopic,
+      kafkaTopicId: this.message.kafkaTopicId,
+      kafkaTopic: this.message.kafkaTopic,
       messageId : 0,       
       sourceId: 0,
       messageProperties: []
@@ -74,4 +74,3 @@ export class MessageAddComponent implements OnInit {
   }
 
 }
-  

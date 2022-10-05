@@ -14,4 +14,8 @@ export class TopicService {
   getSourceTopic(id: number):Observable<SourceTopicDetails>{
     return this.httpClient.get<SourceTopicDetails>(this.baseUrl + `source/getSourceTopicDetails?sourceId=${id}`);
   }
+
+  addOrUpdateKafkaTopic(topic: SourceTopicDetails) {
+    return this.httpClient.post(this.baseUrl + 'source/AddOrUpdateKafkaTopic', topic);
+  }
 }

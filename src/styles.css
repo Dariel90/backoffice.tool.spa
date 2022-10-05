@@ -1,62 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/bootswatch/dist/united/bootstrap.min.css';
-@import '../node_modules/font-awesome/css/font-awesome.min.css';
-@import '../node_modules/alertifyjs/build/css/alertify.min.css';
-@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+@import "../node_modules/bootswatch/dist/united/bootstrap.min.css";
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/alertifyjs/build/css/alertify.min.css";
+@import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";
 
-.my-btn{
-    background-color: #0086D7;
-    border-color: #0086D7;
+.my-btn {
+  background-color: #0086d7;
+  border-color: #0086d7;
 }
 
-.my-btn:hover{
-    background-color: #0086D7;
-    border-color: #0086D7;
+.my-btn:hover {
+  background-color: #0086d7;
+  border-color: #0086d7;
 }
 
 .dropdown-item:active {
-    color: #fff;
-    text-decoration: none;
-    background-color: #0086D7;
+  color: #fff;
+  text-decoration: none;
+  background-color: #0086d7;
 }
 
 @font-face {
-    font-family: "Poppins";
-    src: local("Poppins"), url(../src/assets/fonts/Poppins-Regular.ttf) format("truetype");
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url(../src/assets/fonts/Poppins-Regular.ttf) format("truetype");
 }
 
-.container{
-    font-family: "Poppins";
+.container {
+  font-family: "Poppins";
 }
 
-img.img-thumbnail{
-    height: 100px;
-    width: 100px;
-    min-width: 50px;
-    margin-bottom: 2px;
-    border: 0;
-    margin-top: 10px;
-  }
+img.img-thumbnail {
+  height: 100px;
+  width: 100px;
+  min-width: 50px;
+  margin-bottom: 2px;
+  border: 0;
+  margin-top: 10px;
+  background-color: transparent;
+}
 
-  .card-body{
-    padding: 0 25px;
-  }
-  
- 
+.card-body {
+  padding: 0 25px;
+}
 
-  .card-footer{
-    padding: 10px 15px;
-    background-color: #fff;
-    border-top: none;
-  }
+.my-card-header{
+    background-color: #0f4c71;
+}
 
-  .gray-footer{
-    padding: 10px 15px;
-    background-color: #00000008;
-    border-top: none;
-  }
+.card-footer {
+  padding: 10px 15px;
+  background-color: #fff;
+  border-top: none;
+}
 
-.form-control:focus{
-    border-color: #0086D7;
-    box-shadow: 0 0 0 0.2rem #0086d7!important;
+.gray-footer {
+  padding: 10px 15px;
+  background-color: #00000008;
+  border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.form-control:focus {
+  border-color: #0086d7;
+  box-shadow: 0 0 0 0.2rem #0086d7 !important;
 }

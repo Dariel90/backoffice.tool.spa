@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-sm-4">
       <div class="card mx-auto">
         <div class="card-header text-center">
@@ -12,11 +12,11 @@
           <li class="list-group-item">
             <p>
               <strong>Creation Date:</strong
-              >{{ source.creationDate | date: "mediumDate" }}
+              > {{ source.creationDate | date: "mediumDate" }}
             </p>
           </li>
           <li class="list-group-item">
-            <p><strong>Messages Count:</strong>{{ source.messages.length }}</p>
+            <p><strong>Messages Count:</strong> {{ source.messages.length }}</p>
           </li>
         </ul>
         <div class="card-footer text-center gray-footer">
