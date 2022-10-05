@@ -5,6 +5,8 @@ export interface Property{
     isYours: boolean;
     myPropertyId: number;
     myPropertyName: string;
+    messageName: string;
+    myMessageName : string,
     propertyRelations: PropertyRelation[]
 }
 

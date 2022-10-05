@@ -15,9 +15,17 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/messages']">Messages</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/properties']">Properties</a>
-        </li>
+        <div class="dropdown mt-2" dropdown>
+          <a class="dropdown-toggle" dropdownToggle>
+            Properties
+          </a>
+          <div class="dropdown-menu mt-2" *bsDropdownMenu>
+            <a class="dropdown-item" [routerLink]="['/properties']"><i class="fa far fas fa-list-ul"></i>  Properties List</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/properties/metas']"><i class="fas fa-scroll"></i>  Properties Metadatas</a>
+          </div>
+        </div>
+        
         <li class="nav-item" routerLinkActive="active" *appHasRole="['Admin']">
           <a class="nav-link" [routerLink]="['/admin']">Admin</a>
         </li>
@@ -28,9 +36,9 @@
           Welcome {{authService.decodedToken.unique_name | titlecase}}
         </a>
         <div class="dropdown-menu mt-3" *bsDropdownMenu>
-          <a class="dropdown-item" [routerLink]="['/source/',this.sourceId,'edit'] "><i class="fa fa-user"></i>Edit Source</a>
+          <a class="dropdown-item" [routerLink]="['/source/',this.sourceId,'edit'] "><i class="fa fa-user"></i> Edit Source</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+          <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </div>
   

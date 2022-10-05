@@ -23,6 +23,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
           { path: 'messages', component: MessageListComponent, resolve: { messages: MessageListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'properties', component: PropertyListComponent, resolve: { properties: PropertyListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'kafkatopic', component: KafkaRegisterComponent, resolve: { kafkatopic: KafkaTopicResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'message/add', component: MessageAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'message/:id/edit', component: MessageEditComponent, resolve: { message: MessageEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },

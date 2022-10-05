@@ -2,11 +2,20 @@
     <div class="row">
       <div class="col-md-12 mt-4">      
         <h1 class="text-center">Message List</h1>  
-        <div class="row">
-            <div class="col-md-12 mb-4">
-                <a [routerLink]="['/message/add']"><button class="btn btn-success">Add New Message</button></a>
-            </div>
-          </div>      
+        <div class="mb-4 d-flex flex-row-reverse">
+          <div class="bd-highlight">
+            <select (change)="onTableSizeChange($event)" class="custom-select">
+              <option *ngFor="let size of tableSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <div class="mr-2">
+            <a class="float-end" [routerLink]="['/message/add']"
+              ><button class="btn btn-success">Add New Message</button></a
+            >
+          </div>
+        </div>      
         <table class="table table-bordered table-striped table-hover">
           <thead>
             <tr>
@@ -33,7 +42,7 @@
               <td>{{ this.message.description }}</td>
               <td>{{ this.message.kafkaTopic }}</td>
               <td class="mx-auto text-center">
-                <a [routerLink]="['/message/', this.message.id ,'edit']"><button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditMessageForm(message)"><i class="fa fa-pencil"></i></button></a>              
+                <a [routerLink]="['/message/', this.message.id ,'edit']"><button type="button" class="btn btn-info btn-sm mr-2"><i class="fa fa-pencil"></i></button></a>              
                 <button type="button" class="btn btn-danger btn-sm mr-2" (click)="removeMessage(this.message.id)"><i class="fa fa-trash"></i></button>
             </td>  
             </tr>
@@ -45,21 +54,6 @@
             nextLabel="Next"
             (pageChange)="onTableDataChange($event)"></pagination-controls>
           </div>
-
-        
-  
-        
-  
-          <!-- <form *ngIf="editMessageForm">
-            <h2>Edit Message Details</h2>
-            <p>First Name: <input type="text" name="firstName" [(ngModel)]="editedMessage.firstName" /></p>
-            <p>Last Name: <input type="text" name="lastName" [(ngModel)]="editedMessage.lastName" /></p>
-            <p>
-              <button type="button" class="btn btn-success my-btn btn-block mr-2" (click)="updateMessage()">Submit</button>
-              <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button>
-            </p>
-          </form> -->
-        <!-- </div> -->
       </div>
     </div>
   </div>

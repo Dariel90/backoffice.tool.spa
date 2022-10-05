@@ -14,10 +14,10 @@ export class PropertyService {
   
   constructor(private http: HttpClient) { }
 
-  getProperties(page?: number,itemsPerPage?: number): Observable<PaginatedResult<Property[]>> {
+  getProperties(sourceId: number, page?: number,itemsPerPage?: number): Observable<PaginatedResult<Property[]>> {
     const paginatedResult: PaginatedResult<Property[]> = new PaginatedResult<Property[]>();
     let params = new HttpParams();
-  
+    params = params.append('sourceId', sourceId);
     if (page != null && itemsPerPage != null) {
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
@@ -33,5 +33,9 @@ export class PropertyService {
         return paginatedResult;
       })
     );
-}
+  }
+
+  deleteProperty(propertyId: number) {
+    return this.http.delete(this.baseUrl + `property/delete?propertyId=${propertyId}` , {});
+  }
 }

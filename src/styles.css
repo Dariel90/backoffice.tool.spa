@@ -3,6 +3,12 @@
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
 @import "../node_modules/alertifyjs/build/css/alertify.min.css";
 @import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";
+@import "../src/assets/fontawesome/css/fontawesome.min.css";
+@import "../src/assets/fontawesome/css/brands.css";
+@import "../src/assets/fontawesome/css/solid.min.css";
+@import "../src/assets/fontawesome/css/v5-font-face.min.css";
+@import "../src/assets/fontawesome/css/v4-font-face.min.css";
+
 
 .my-btn {
   background-color: #0086d7;
@@ -63,4 +69,12 @@ img.img-thumbnail {
 .form-control:focus {
   border-color: #0086d7;
   box-shadow: 0 0 0 0.2rem #0086d7 !important;
+}
+
+div.dropdown > a.dropdown-toggle{
+  color: #ffffff80;
+}
+
+nav > ul.ngx-pagination {
+  padding-left: 0;
 }
