@@ -35,6 +35,7 @@ import { MessageEditComponent } from './mymessage/message-edit/message-edit.comp
 import { MessageEditResolver } from './_resolver/message-edit.resolver';
 import { KafkaRegisterComponent } from './kafkatopic/kafka-register/kafka-register.component';
 import { KafkaTopicResolver } from './_resolver/kafkatopic-resolver.resolver';
+import { PropertyAddComponent } from './myproperties/property-add/property-add.component';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -59,6 +60,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     MessageAddComponent,
     MessageEditComponent,
     KafkaRegisterComponent,
+    PropertyAddComponent,
   ],
   imports: [
     HttpClientModule,
@@ -99,7 +101,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     SourceDetailsResolver,
     MessageListResolver,
     MessageEditResolver,
-    KafkaTopicResolver
+    KafkaTopicResolver,
   ],
   bootstrap: [AppComponent]
 })

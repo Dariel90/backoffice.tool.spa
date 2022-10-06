@@ -12,7 +12,7 @@
         </div>
         <div class="mr-2">
           <a class="float-end" [routerLink]="['/property/add']"
-            ><button class="btn btn-success">Add New Property</button></a
+            ><button class="btn btn-success"><i class="far fa-plus-square"></i> New Property</button></a
           >
         </div>
       </div>
@@ -41,7 +41,7 @@
               let i = index">
             
             <td scope="row" class="text-center">{{ this.property.id }}</td>
-            <td>{{ this.property.type }}</td>
+            <td>{{ this.getTypeByNumber(this.property.type)}}</td>
             <td>{{ this.property.name }}</td>
             <td>{{ this.property.messageName }}</td>
             <td>{{ this.property.myPropertyName }}</td>

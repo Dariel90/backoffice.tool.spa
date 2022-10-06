@@ -7,11 +7,10 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { PropertyService } from 'src/app/_services/property.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
-
 @Component({
   selector: 'app-property-list',
   templateUrl: './property-list.component.html',
-  styleUrls: ['./property-list.component.css']
+  styleUrls: ['./property-list.component.css'],
 })
 export class PropertyListComponent implements OnInit {
   properties: Property[];
@@ -21,10 +20,16 @@ export class PropertyListComponent implements OnInit {
   tableSize: number = 5;
   tableSizes: any = [5, 10, 50, 100];
 
-  constructor(private router: Router,private propertyService: PropertyService, private alertify: AlertifyService, private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private propertyService: PropertyService,
+    private alertify: AlertifyService,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.properties = data['properties'].result;
       this.pagination = data['properties'].pagination;
       this.page = this.pagination.currentPage;
@@ -47,23 +52,52 @@ export class PropertyListComponent implements OnInit {
 
   loadProperties() {
     const sourceId = this.authService.getSourceFromStorage();
-    this.propertyService.getProperties(sourceId,this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<Property[]>) => {
-      this.properties = res.result;
-      this.pagination = res.pagination;
-      this.page = res.pagination.currentPage;
-      this.count = res.pagination.totalItems;
-    }, error => {
-      this.alertify.error(error);
-    });
+    this.propertyService
+      .getProperties(
+        sourceId,
+        this.pagination.currentPage,
+        this.pagination.itemsPerPage
+      )
+      .subscribe(
+        (res: PaginatedResult<Property[]>) => {
+          this.properties = res.result;
+          this.pagination = res.pagination;
+          this.page = res.pagination.currentPage;
+          this.count = res.pagination.totalItems;
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
+  }
+
+  getTypeByNumber(type: number) {
+    switch (type) {
+      case 0:
+        return 'Integer';
+      case 1:
+        return 'Float';
+      case 2:
+        return 'Double';
+      case 3:
+        return 'String';
+      case 4:
+        return 'Decimal';
+      case 5:
+        return 'Boolean';
+      case 6:
+        return 'DateTime';
+      default:
+        return "";
+        break;
+    }
   }
 
   showAddPropertyForm() {
     this.router.navigate(['/property/add']);
-
   }
 
   removeMessage(propertyId: number) {
-     this.propertyService.deleteProperty(propertyId);
+    this.propertyService.deleteProperty(propertyId);
   }
-
 }

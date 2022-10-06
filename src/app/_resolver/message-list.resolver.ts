@@ -18,7 +18,7 @@ export class MessageListResolver implements Resolve<PaginatedResult<Message[]>> 
               private alertify: AlertifyService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<PaginatedResult<Message[]>> {
-    return this.propertyService.getMessages(this.pageNumber, this.pageSize).pipe<PaginatedResult<Message[]>>(
+    return this.propertyService.getPaginatedMessages(this.pageNumber, this.pageSize).pipe<PaginatedResult<Message[]>>(
       catchError<PaginatedResult<Message[]>,Observable<any>>(error => {
         this.alertify.error('Problem retreiving data');
         this.router.navigate(['/home']);

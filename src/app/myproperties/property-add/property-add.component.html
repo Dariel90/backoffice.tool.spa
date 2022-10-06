@@ -1,0 +1,95 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <h1>New Property</h1>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-header bg-transparent">
+              <div class="ml-5">
+                  <img class="card-img-center img-thumbnail ml-5" src="../../../assets/property.png"> 
+              </div>
+          </div>
+          <div class="card-body mt-2">
+            <form
+              #editForm="ngForm"
+              (ngSubmit)="this.addOrUpdateProperty()"
+              id="editForm"
+            >
+              <div class="ml-5 d-flex justify-content-end">
+                <button
+                  class="btn btn-info btn-sm ml-5"
+                  (click)="this.cleanInputs()"
+                >
+                  <i class="fa fas fa-plus-square"></i> Add New
+                </button>
+              </div>
+  
+              <p>
+                Property Name:
+                <input
+                  #inputName
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  [(ngModel)]="this.newProperty!.name"
+                />
+              </p>
+              <p>
+                Data Type:
+                <select class="form-control ml-1" id="type" name="datatype" [(ngModel)]="newProperty.type">
+                  <option *ngFor="let type of dataTypes" [value]="type.value">
+                    {{type.display}}
+                  </option>
+                </select>
+              </p>
+              <p>
+                From Message:
+                <select class="form-control ml-1 flex-fill" id="messageId" name="message" [(ngModel)]="newProperty.messageId">
+                  <option [value]="0">Select</option>
+                  <option *ngFor="let message of messages" [value]="message.id">
+                    {{message.name}}
+                  </option>
+                </select>
+              </p>
+              <div *ngIf="this.sourceId == null">
+                <p *appHasRole="['Admin']" >                
+                  <input type="checkbox" [(ngModel)]="newProperty.isYours" name="isYours" checked> It's their Property
+                </p>
+              </div>
+              <p>
+                System Property
+                <select class="form-control ml-1 flex-fill" id="myPropertyId" name="myProperty" [(ngModel)]="newProperty.myPropertyId">
+                  <option [value]="0">Select</option>
+                  <option *ngFor="let property of myProperties" [value]="property.id">
+                    {{property.myMessageName}} | {{property.name}}
+                  </option>
+                </select>
+              </p>              
+            </form>
+          </div>
+          <div class="card-footer gray-footer">
+            <button
+              [disabled]="!editForm.dirty"
+              form="editForm"
+              class="btn btn-success btn-block"
+            >
+              <i class="fa fa-save"></i> Save Changes
+            </button>
+            <a [routerLink]="['/messages']"
+              ><button class="btn btn-danger btn-block mt-2">
+                <i class="fa fa-sign-out"></i> Back
+              </button></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-2">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <strong>Information: </strong>You have made changes. And unsaved changes
+        will be lost!!
+      </div>
+    </div>
+  </div>
+  

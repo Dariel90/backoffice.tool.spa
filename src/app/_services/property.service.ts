@@ -35,6 +35,10 @@ export class PropertyService {
     );
   }
 
+  getAllProperties(sourceId: number | null, isYours: boolean): Observable<Property[]>{
+    return this.http.get<Property[]>(this.baseUrl + sourceId != null ? `property/GetAllProperties?sourceId=${sourceId}&isYours=${isYours}` : `property/GetAllProperties?isYours=${isYours}` );
+  }
+
   deleteProperty(propertyId: number) {
     return this.http.delete(this.baseUrl + `property/delete?propertyId=${propertyId}` , {});
   }

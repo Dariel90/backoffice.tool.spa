@@ -16,7 +16,7 @@ export class MessageService {
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getMessages(page?: number,itemsPerPage?: number): Observable<PaginatedResult<Message[]>> {
+  getPaginatedMessages(page?: number,itemsPerPage?: number): Observable<PaginatedResult<Message[]>> {
     const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
     let params = new HttpParams();
   
@@ -40,6 +40,10 @@ export class MessageService {
 
   getMessage(Id: number):Observable<Message>{
     return this.http.get<Message>(this.baseUrl + `message/GetMessageDetails?messageId=${Id}`);
+  }
+
+  getAllMessages(sourceId: number): Observable<Message[]>{
+    return this.http.get<Message[]>(this.baseUrl + `message/GetAllMessages?sourceId=${sourceId}`);
   }
 
   addOrUpdateMessage(message: AddUpdateMessage) {

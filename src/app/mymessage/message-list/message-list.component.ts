@@ -53,7 +53,7 @@ export class MessageListComponent implements OnInit {
   }
 
   loadMessages() {
-    this.messageService.getMessages(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<Message[]>) => {
+    this.messageService.getPaginatedMessages(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<Message[]>) => {
       this.messages = res.result;
       this.pagination = res.pagination;
       this.page = res.pagination.currentPage;
