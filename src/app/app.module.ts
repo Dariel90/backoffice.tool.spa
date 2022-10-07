@@ -21,6 +21,7 @@ import { PropertyListResolver } from './_resolver/property-list.resolver';
 import { SourceEditResolver } from './_resolver/source-edit.resolver';
 import { SourceAddComponent } from './mysources/source-add/source-add.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { SelectRequiredValidatorDirective } from './_directives/select-required-validator.directive';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './_services/auth.interceptor';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -56,6 +57,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     PropertyListComponent,
     SourceAddComponent,
     HasRoleDirective,
+    SelectRequiredValidatorDirective,
     MessageListComponent,
     MessageAddComponent,
     MessageEditComponent,
@@ -64,10 +66,10 @@ export class CustomHammerConfig extends HammerGestureConfig  {
   ],
   imports: [
     HttpClientModule,
-    BrowserModule,    
+    BrowserModule,
+    ReactiveFormsModule,    
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     NgxPaginationModule,
     PaginationModule,

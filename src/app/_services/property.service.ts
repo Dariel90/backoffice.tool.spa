@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Property } from '../_models/property';
+import { AddUpdateProperty } from '../_models/addUpdateProperty';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,18 @@ export class PropertyService {
   }
 
   getAllProperties(sourceId: number | null, isYours: boolean): Observable<Property[]>{
-    return this.http.get<Property[]>(this.baseUrl + sourceId != null ? `property/GetAllProperties?sourceId=${sourceId}&isYours=${isYours}` : `property/GetAllProperties?isYours=${isYours}` );
+    const requestUrl = sourceId ? `property/GetAllProperties?sourceId=${sourceId}&isYours=${isYours}` : `property/GetAllProperties?isYours=${isYours}`;
+    const result = this.http.get<Property[]>(this.baseUrl + requestUrl);
+    return result;
+  }
+
+  getMessageProperties(isYours: boolean, messageId: number): Observable<Property[]>{
+    const result = this.http.get<Property[]>(this.baseUrl + `property/GetPropertiesFormMessage?messageId=${messageId}&isYours=${isYours}`);
+    return result;
+  }
+
+  addOrUpdateMessage(property: AddUpdateProperty) {
+    return this.http.post(this.baseUrl + 'property/addOrUpdateProperty', property);
   }
 
   deleteProperty(propertyId: number) {

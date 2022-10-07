@@ -78,3 +78,15 @@ div.dropdown > a.dropdown-toggle{
 nav > ul.ngx-pagination {
   padding-left: 0;
 }
+
+div.form-group > label{
+  margin-bottom: 0;
+}
+ span.help-block.text-red{
+  color: red;
+  font-size: 0.8rem;
+ }
+
+ span.help-block.text-red > span.already-exists{
+  font-size: 0.7rem;
+ }
