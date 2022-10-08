@@ -1,6 +1,6 @@
 import { Property } from "./property";
 
-export interface Message{
+export class MessageData{
     id: number;
     name:string;
     description: string;
@@ -8,5 +8,8 @@ export interface Message{
     kafkaTopic: string;
     sourceId: number | null;
     sourceName: string;
+}
+export class Message extends MessageData{
+    
     properties: Property[];
 }

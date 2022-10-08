@@ -3,9 +3,11 @@ export interface Property{
     name: string;
     type: number;
     isYours: boolean;
+    messageId: string;
+    messageName: string;
     myPropertyId: number;
     myPropertyName: string;
-    messageName: string;
+    myMessageId: number | null;
     myMessageName : string,
     propertyRelations: PropertyRelation[]
 }

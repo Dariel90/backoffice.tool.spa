@@ -16,6 +16,8 @@ import { MessageEditResolver } from './_resolver/message-edit.resolver';
 import { KafkaRegisterComponent } from './kafkatopic/kafka-register/kafka-register.component';
 import { KafkaTopicResolver } from './_resolver/kafkatopic-resolver.resolver';
 import { PropertyAddComponent } from './myproperties/property-add/property-add.component';
+import { PropertyEditComponent } from './myproperties/property-edit/property-edit.component';
+import { PropertyEditResolver } from './_resolver/property-edit.resolver';
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     {
@@ -24,6 +26,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
           { path: 'messages', component: MessageListComponent, resolve: { messages: MessageListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'property/:id/edit', component: PropertyEditComponent, resolve: { property: PropertyEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'property/add', component: PropertyAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'properties', component: PropertyListComponent, resolve: { properties: PropertyListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'kafkatopic', component: KafkaRegisterComponent, resolve: { kafkatopic: KafkaTopicResolver}, data: { roles: ['Admin', 'SourceAdmin']} },

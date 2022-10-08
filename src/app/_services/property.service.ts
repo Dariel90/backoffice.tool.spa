@@ -36,6 +36,11 @@ export class PropertyService {
     );
   }
 
+  getProperty(propertyId: number): Observable<Property[]>{
+    const result = this.http.get<Property[]>(this.baseUrl + `property/GetPropertyDetails?propertyId=${propertyId}`);
+    return result;
+  }
+
   getAllProperties(sourceId: number | null, isYours: boolean): Observable<Property[]>{
     const requestUrl = sourceId ? `property/GetAllProperties?sourceId=${sourceId}&isYours=${isYours}` : `property/GetAllProperties?isYours=${isYours}`;
     const result = this.http.get<Property[]>(this.baseUrl + requestUrl);

@@ -142,10 +142,6 @@ export class PropertyAddComponent implements OnInit {
       });
   }
 
-  IsSysPropertiesEmpty() {
-    return this.systemMessages.length > 0 ? 'false' : 'disabled';
-  }
-
   private addOrUpdateProperty(formValues: string) {
     const formParam = JSON.parse(formValues) as any;
     this.newProperty = {

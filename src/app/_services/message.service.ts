@@ -42,6 +42,10 @@ export class MessageService {
     return this.http.get<Message>(this.baseUrl + `message/GetMessageDetails?messageId=${Id}`);
   }
 
+  getMessageFromProperty(propertyId: number):Observable<Message>{
+    return this.http.get<Message>(this.baseUrl + `message/GetMessageFormProperty?propertyId=${propertyId}`);
+  }
+
   getAllMessages(sourceId: number | null): Observable<Message[]>{
     const requestUrl = sourceId ? `message/GetAllMessages?sourceId=${sourceId}` : `message/GetAllMessages`;
     return this.http.get<Message[]>(this.baseUrl + requestUrl);
