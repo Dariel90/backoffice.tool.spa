@@ -69,7 +69,12 @@ export class MessageListComponent implements OnInit {
   }
 
   removeMessage(messageId: number) {
-     this.messageService.deleteMessage(messageId);
-  }
+     this.messageService.deleteMessage(messageId).subscribe(() => {
+      this.alertify.success('Message has been deleted succesfully');
+    }, error => {
+      this.alertify.error('Failed to delete the message');
+    });
+  };
+  
 
 }

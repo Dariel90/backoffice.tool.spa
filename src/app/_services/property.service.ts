@@ -57,6 +57,6 @@ export class PropertyService {
   }
 
   deleteProperty(propertyId: number) {
-    return this.http.delete(this.baseUrl + `property/delete?propertyId=${propertyId}` , {});
+    return this.http.delete(this.baseUrl + `property/Delete?PropertyId=${propertyId}` , {});
   }
 }

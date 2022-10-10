@@ -7,6 +7,7 @@ export interface Property{
     messageName: string;
     myPropertyId: number;
     myPropertyName: string;
+    myPropertyType: number;
     myMessageId: number | null;
     myMessageName : string,
     propertyRelations: PropertyRelation[]

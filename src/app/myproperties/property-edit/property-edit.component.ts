@@ -40,7 +40,8 @@ export class PropertyEditComponent implements OnInit {
     isYours: true,
     myPropertyId: -1,
   };
-
+  propType: number = -1;
+  mySysPropType: number;
   systemProperties: Property[];
   sourceId: number | null;
   messages: Message[];
@@ -89,6 +90,8 @@ export class PropertyEditComponent implements OnInit {
         isYours: data['property'].isYours,
         myPropertyId: data['property'].myPropertyId,
       };
+      this.mySysPropType = data['property'].myPropertyType;
+      this.propType = data['property'].type;
     });
 
     this.sourceId = this.authService.getSourceFromStorage();
@@ -170,6 +173,25 @@ export class PropertyEditComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  UpdateDataTypeSelected(e: any){
+    const selectEl = e.target;
+    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    this.propType = attrVal as number;
+  }
+
+  UpdateMySysPropType(e: any){
+    const selectEl = e.target;
+    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    this.mySysPropType = Number(attrVal);
+    const type = Number(this.propType);
+    if( type >= 0 && this.mySysPropType >= 0){
+      if(type != this.mySysPropType){
+        //this.alertify.error("The properties types doesn't match");
+        this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': true});
+      }
+    }
+  }
+
   onSubmit(): void {
     this.submitted = true;
 
@@ -177,8 +199,16 @@ export class PropertyEditComponent implements OnInit {
       return;
     }
     var formValues = JSON.stringify(this.registerForm.value, null, 2);
+    var propertyDataType: number = this.f["datatype"].value as number;
+    if(propertyDataType !== Number(this.mySysPropType)){
+      this.alertify.message("The properties types doesn't match");
+      return;
+    }
+      
     this.addOrUpdateProperty(formValues);
   }
+
+  
 
   loadSystemMessageProperties(e: any) {
     if (e.target.value != '') {

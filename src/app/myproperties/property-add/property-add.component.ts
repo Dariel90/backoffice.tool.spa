@@ -39,6 +39,8 @@ export class PropertyAddComponent implements OnInit {
     isYours: true,
     myPropertyId: -1,
   };
+  propType: number = -1;
+  mySysPropType: number = -1;
   systemProperties: Property[];
   sourceId: number | null;
   messages: Message[];
@@ -88,6 +90,12 @@ export class PropertyAddComponent implements OnInit {
     });
   }
 
+  UpdateDataTypeSelected(e: any){
+    const selectEl = e.target;
+    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    this.propType = attrVal as number;
+  }
+
   private validateName(): ValidatorFn | null{
     return (control: AbstractControl): {[key: string]: boolean} | null => {
       if(this.forbiddenPropertyNames!.length > 0){
@@ -107,7 +115,20 @@ export class PropertyAddComponent implements OnInit {
   }
 
   get f() {
-    return this.registerForm.controls;
+    return this.registerForm!.controls;
+  }
+
+  UpdateMySysPropType(e: any){
+    const selectEl = e.target;
+    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    this.mySysPropType = Number(attrVal);
+    const type = Number(this.propType);
+    if( type >= 0 && this.mySysPropType >= 0){
+      if(type != this.mySysPropType){
+        //this.alertify.error("The properties types doesn't match");
+        this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': true});
+      }
+    }
   }
 
   onSubmit(): void {
@@ -117,6 +138,11 @@ export class PropertyAddComponent implements OnInit {
       return;
     }
     var formValues = JSON.stringify(this.registerForm.value, null, 2);
+    var propertyDataType: number = this.f["datatype"].value as number;
+    if(propertyDataType !== Number(this.mySysPropType)){
+      this.alertify.message("The properties types doesn't match");
+      return;
+    }
     this.addOrUpdateProperty(formValues);
   }
 
@@ -178,7 +204,6 @@ export class PropertyAddComponent implements OnInit {
       isYours: true,
       myPropertyId: null,
     };
-    //this.registerForm.reset();
     this.initilizeFormGroup();
     this.inputName.nativeElement.focus();
   }

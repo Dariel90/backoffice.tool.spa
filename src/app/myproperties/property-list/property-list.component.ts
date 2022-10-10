@@ -98,6 +98,11 @@ export class PropertyListComponent implements OnInit {
   }
 
   removeMessage(propertyId: number) {
-    this.propertyService.deleteProperty(propertyId);
-  }
+    this.propertyService.deleteProperty(propertyId).subscribe(() => {
+      this.alertify.success('Property has been deleted succesfully');
+    }, error => {
+      this.alertify.error('Failed to delete the property');
+    });
+  };
+  
 }

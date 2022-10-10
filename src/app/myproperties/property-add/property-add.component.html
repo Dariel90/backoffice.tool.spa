@@ -67,7 +67,7 @@
                 [ngClass]="{
                   'is-invalid':
                     submitted && registerForm.controls['datatype'].errors
-                }"
+                }" (change)="this.UpdateDataTypeSelected($event)"
               >
                 <option value="">Select Data Type</option>
                 <option *ngFor="let type of dataTypes" [value]="type.value">
@@ -178,12 +178,12 @@
                 formControlName="sysProperty"
                 [ngClass]="{
                   'is-invalid': submitted && f['sysProperty'].errors
-                }"
+                }" (change)="this.UpdateMySysPropType($event)"
               >
                 <option value="">Select System Property</option>
                 <option
                   *ngFor="let property of systemProperties"
-                  [value]="property.id"
+                  [value]="property.id" [attr.type]="property.type"
                 >
                   Data Type:
                   {{ this.getTypeByNumber(property.type) }} |
@@ -197,6 +197,13 @@
                   registerForm['controls']['sysProperty'].touched
                 "
               >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['sysProperty'].hasError('typeIsForbidden')
+                  "
+                  >The system property's type doesn't match with the new property data type selected</span
+                >
                 <span *ngIf="f['sysProperty'].hasError('required')"
                   >Please select the system property</span
                 >
