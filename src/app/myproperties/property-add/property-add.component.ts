@@ -127,6 +127,8 @@ export class PropertyAddComponent implements OnInit {
       if(type != this.mySysPropType){
         //this.alertify.error("The properties types doesn't match");
         this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': true});
+      }else{
+        this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': false});
       }
     }
   }

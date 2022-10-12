@@ -18,6 +18,11 @@ import { KafkaTopicResolver } from './_resolver/kafkatopic-resolver.resolver';
 import { PropertyAddComponent } from './myproperties/property-add/property-add.component';
 import { PropertyEditComponent } from './myproperties/property-edit/property-edit.component';
 import { PropertyEditResolver } from './_resolver/property-edit.resolver';
+import { PropertyMetadataListComponent } from './myproperties/property.metadata-list/property.metadata-list.component';
+import { PropertiesMetadataListResolver } from './_resolver/property.metadatas-list.resolver';
+import { PropertyMetadataAddComponent } from './myproperties/property.metadata-add/property.metadata-add.component';
+import { PropertyMetadataEditComponent } from './myproperties/property.metadata-edit/property.metadata-edit.component';
+import { PropertyMetadataEditResolver } from './_resolver/property.metadatas-edit.resolver';
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     {
@@ -29,6 +34,9 @@ export const appRoutes: Routes = [
           { path: 'property/:id/edit', component: PropertyEditComponent, resolve: { property: PropertyEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'property/add', component: PropertyAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'properties', component: PropertyListComponent, resolve: { properties: PropertyListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'properties/metadatas', component: PropertyMetadataListComponent, resolve: { properties: PropertiesMetadataListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'metadata/add', component: PropertyMetadataAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'metadata/:id/edit', component: PropertyMetadataEditComponent, resolve: { metdata: PropertyMetadataEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'kafkatopic', component: KafkaRegisterComponent, resolve: { kafkatopic: KafkaTopicResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'message/add', component: MessageAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'message/:id/edit', component: MessageEditComponent, resolve: { message: MessageEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },

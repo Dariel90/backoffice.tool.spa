@@ -90,3 +90,11 @@ div.form-group > label{
  span.help-block.text-red > span.already-exists{
   font-size: 0.7rem;
  }
+
+ table > thead > tr > th{
+  vertical-align: middle !important;
+ }
+
+ table > tbody > tr > td{
+  vertical-align: middle !important;
+ }

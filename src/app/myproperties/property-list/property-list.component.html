@@ -12,7 +12,9 @@
         </div>
         <div class="mr-2">
           <a class="float-end" [routerLink]="['/property/add']"
-            ><button class="btn btn-success"><i class="far fa-plus-square"></i> New Property</button></a
+            ><button class="btn btn-success">
+              <i class="far fa-plus-square"></i> New Property
+            </button></a
           >
         </div>
       </div>
@@ -25,7 +27,7 @@
             <th class="text-center">From Message</th>
             <th class="text-center">System Property</th>
             <th class="text-center">System Message</th>
-            <th class="text-center">Edit/Delete</th>
+            <th class="text-center">Edit/Meta/Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -38,39 +40,63 @@
                       currentPage: page,
                       totalItems: count
                     };
-              let i = index">
-            
+              let i = index
+            "
+          >
             <td scope="row" class="text-center">{{ this.property.id }}</td>
-            <td>{{ this.getTypeByNumber(this.property.type)}}</td>
+            <td>{{ this.getTypeByNumber(this.property.type) }}</td>
             <td>{{ this.property.name }}</td>
             <td>{{ this.property.messageName }}</td>
             <td>{{ this.property.myPropertyName }}</td>
             <td>{{ this.property.myMessageName }}</td>
             <td class="mx-auto text-center">
-              <a [routerLink]="['/property/', this.property.id, 'edit']"
-                ><button type="button" class="btn btn-info btn-sm mr-2">
-                  <i class="fa fa-pencil"></i></button
-              ></a>
-              <button
-                type="button"
-                class="btn btn-danger btn-sm mr-2"
-                (click)="removeMessage(this.property.id)"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
+              <div class="flex-row d-inline-flex">
+                <a [routerLink]="['/property/', this.property.id, 'edit']"
+                  ><button type="button" class="btn btn-info btn-sm mr-2">
+                    <i class="fa fa-pencil"></i></button
+                ></a>
+                <div *ngIf="this.property.hasMetadata">
+                  <a
+                    [routerLink]="[
+                      '/property/metadata/',
+                      this.property.id,
+                      'edit'
+                    ]"
+                    ><button type="button" class="btn btn-dark btn-sm mr-2">
+                      <i class="fas fa-scroll"></i></button
+                  ></a>
+                </div>
+                <div *ngIf="!this.property.hasMetadata">
+                  <a
+                    [routerLink]="[
+                      '/property/metadata/',
+                      this.property.id,
+                      'add'
+                    ]"
+                    ><button type="button" class="btn btn-dark btn-sm mr-2">
+                      <i class="fas fa-scroll"></i></button
+                  ></a>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm mr-2"
+                  (click)="removeProperty(this.property.id)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
 
       <div class="d-flex justify-content-center text-center mt-3">
-        <pagination-controls 
+        <pagination-controls
           previousLabel="Prev"
           nextLabel="Next"
           (pageChange)="onTableDataChange($event)"
         >
-          </pagination-controls
-        >
+        </pagination-controls>
       </div>
     </div>
   </div>

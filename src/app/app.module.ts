@@ -39,6 +39,11 @@ import { KafkaTopicResolver } from './_resolver/kafkatopic-resolver.resolver';
 import { PropertyAddComponent } from './myproperties/property-add/property-add.component';
 import { PropertyEditComponent } from './myproperties/property-edit/property-edit.component';
 import { PropertyEditResolver } from './_resolver/property-edit.resolver';
+import { PropertyMetadataAddComponent } from './myproperties/property.metadata-add/property.metadata-add.component';
+import { PropertyMetadataListComponent } from './myproperties/property.metadata-list/property.metadata-list.component';
+import { PropertiesMetadataListResolver } from './_resolver/property.metadatas-list.resolver';
+import { PropertyMetadataEditComponent } from './myproperties/property.metadata-edit/property.metadata-edit.component';
+import { PropertyMetadataEditResolver } from './_resolver/property.metadatas-edit.resolver';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -66,6 +71,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     KafkaRegisterComponent,
     PropertyAddComponent,
     PropertyEditComponent,
+    PropertyMetadataAddComponent,
+    PropertyMetadataListComponent,
+    PropertyMetadataEditComponent,
   ],
   imports: [
     HttpClientModule,
@@ -107,7 +115,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     MessageListResolver,
     MessageEditResolver,
     KafkaTopicResolver,
-    PropertyEditResolver
+    PropertyEditResolver,
+    PropertiesMetadataListResolver,
+    PropertyMetadataEditResolver
   ],
   bootstrap: [AppComponent]
 })

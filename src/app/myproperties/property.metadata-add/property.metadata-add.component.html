@@ -1,0 +1,256 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <h1>New Property Metadata</h1>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header bg-transparent">
+          <div class="ml-5">
+            <img
+              class="card-img-center img-thumbnail ml-5"
+              src="../../../assets/metadata.png"
+            />
+          </div>
+        </div>
+        <div class="ml-5 d-flex justify-content-end">
+          <button class="btn btn-info btn-sm ml-3 mt-3 mr-4" (click)="this.cleanInputs()">
+            <i class="fa fas fa-plus-square"></i> Add New
+          </button>
+        </div>
+        <form
+          [formGroup]="registerForm"
+          #editForm
+          (ngSubmit)="this.onSubmit()"
+          id="editForm"
+        >
+          <div class="card-body mt-2">
+            <div class="form-group" [class.has-error]="">
+              <label for="name">Property Metadata Name:</label>
+              <input
+                id="name"
+                #inputName
+                required
+                type="text"
+                class="form-control ml-1"
+                formControlName="name"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['name'].errors
+                }"
+              />
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['name'].valid &&
+                  registerForm['controls']['name'].touched
+                "
+              >
+                <span
+                  *ngIf="registerForm['controls']['name'].hasError('required')"
+                  >Field is required</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="type">New Value Data Type:</label>
+              <select
+                required
+                class="form-control ml-1"
+                id="type"
+                formControlName="newDatatype"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['newDatatype'].errors
+                }"
+                (change)="this.updateDataTypeSelected($event)"
+              >
+                <option value="">Select Data Type</option>
+                <option *ngFor="let type of dataTypes" [value]="type.value">
+                  {{ type.display }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['newDatatype'].valid &&
+                  registerForm['controls']['newDatatype'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['newDatatype'].hasError('required')
+                  "
+                  >Please select a data type</span
+                >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['newDatatype'].hasError(
+                      'typeIsForbidden'
+                    )
+                  "
+                  >The selected data type, for the new property metadata value,
+                  doesn't match with the data type of the base property</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="message">From Message:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="messageId"
+                formControlName="message"
+                (change)="this.loadMessageProperties($event)"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['message'].errors
+                }"
+              >
+                <option value="">Select Message</option>
+                <option *ngFor="let message of messages" [value]="message.id">
+                  {{ message.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['message'].valid &&
+                  registerForm['controls']['message'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['message'].hasError('required')
+                  "
+                  >Please select the message</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="sysProperty">From Property:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="propertyId"
+                formControlName="property"
+                [ngClass]="{
+                  'is-invalid': submitted && f['property'].errors
+                }"
+                (change)="this.updateBasePropType($event)"
+              >
+                <option value="">Select Property</option>
+                <option
+                  *ngFor="let property of properties"
+                  [value]="property.id"
+                  [attr.type]="property.type"
+                >
+                  Data Type:
+                  {{ this.getTypeByNumber(property.type) }} |
+                  {{ property.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['property'].valid &&
+                  registerForm['controls']['property'].touched
+                "
+              >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['property'].hasError(
+                      'typeIsForbidden'
+                    )
+                  "
+                  >The property's type doesn't match with the new value data
+                  type selected</span
+                >
+                <span *ngIf="f['property'].hasError('required')"
+                  >Please select the property</span
+                >
+              </span>
+            </div>
+            <div class="form-group" [class.has-error]="">
+              <label for="oldValue">Property Old Value:</label>
+              <input
+                id="oldValue"
+                required
+                type="text"
+                class="form-control ml-1"
+                formControlName="oldValue"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['oldValue'].errors
+                }"
+              />
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['oldValue'].valid &&
+                  registerForm['controls']['oldValue'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['oldValue'].hasError('required')
+                  "
+                  >Field is required</span
+                >
+              </span>
+            </div>
+            <div class="form-group" [class.has-error]="">
+              <label for="newValue">Property New Value:</label>
+              <input
+                id="newValue"
+                required
+                type="text"
+                class="form-control ml-1"
+                formControlName="newValue"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['newValue'].errors
+                }"
+              />
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['newValue'].valid &&
+                  registerForm['controls']['newValue'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['newValue'].hasError('required')
+                  "
+                  >Field is required</span
+                >
+              </span>
+            </div>
+          </div>
+
+          <div class="card-footer gray-footer">
+            <button type="submit" class="btn btn-success btn-block">
+              <i class="fa fa-save"></i> Save Changes
+            </button>
+            <a [routerLink]="['/properties/metadatas']"
+              ><button class="btn btn-danger btn-block mt-2">
+                <i class="fa fa-sign-out"></i> Back
+              </button></a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div
+      class="alert alert-info"
+      *ngIf="!registerForm.valid && registerForm.touched"
+    >
+      <strong>Information: </strong>Please enter a valid data!!
+    </div>
+  </div>
+</div>

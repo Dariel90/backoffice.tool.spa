@@ -10,6 +10,7 @@ export interface Property{
     myPropertyType: number;
     myMessageId: number | null;
     myMessageName : string,
+    hasMetadata: boolean,
     propertyRelations: PropertyRelation[]
 }
 

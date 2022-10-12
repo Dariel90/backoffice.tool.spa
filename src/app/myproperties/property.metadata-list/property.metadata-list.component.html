@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <h1 class="text-center">Properties Metadata List</h1>
+        <div class="mb-4 d-flex flex-row-reverse">
+          <div class="bd-highlight">
+            <select (change)="onTableSizeChange($event)" class="custom-select">
+              <option *ngFor="let size of tableSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <div class="mr-2">
+            <a class="float-end" [routerLink]="['/metadata/add']"
+              ><button class="btn btn-success"><i class="far fa-plus-square"></i> New Property Metadata</button></a
+            >
+          </div>
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">ID Meta</th>
+              <th class="text-center">Data Type</th>
+              <th class="text-center">Descriptor Name</th>
+              <th class="text-center">Value</th>
+              <th class="text-center">Replace Value</th>
+              <th class="text-center">From Message</th>
+              <th class="text-center">From Property</th>
+              <th class="text-center">Property Type</th>
+              <th class="text-center">Edit/Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let property of properties
+                  | paginate
+                    : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: count
+                      };
+                let i = index">
+              
+              <td scope="row" class="text-center">{{ this.property.propertyMetadataId }}</td>
+              <td scope="row" class="text-center">{{ this.getTypeByNumber(this.property.propertyReplaceValueDataType)}}</td>
+              <td>{{ this.property.propertyMetadataDescriptor }}</td>
+              <td>{{ this.property.propertyMetaDataValue }}</td>
+              <td>{{ this.property.propertyReplaceValue }}</td>
+              <td>{{ this.property.messageName }}</td>
+              <td>{{ this.property.propertyName }}</td>
+              <td scope="row" class="text-center">{{ this.getTypeByNumber(this.property.propertyDataType) }}</td>
+              <td class="mx-auto text-center">
+                <a [routerLink]="['/metadata/', this.property.propertyMetadataId, 'edit']"
+                  ><button type="button" class="btn btn-info btn-sm mr-2">
+                    <i class="fa fa-pencil"></i></button
+                ></a>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm mr-2"
+                  (click)="removePropertyMeta(this.property.propertyMetadataId)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="d-flex justify-content-center text-center mt-3">
+          <pagination-controls 
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"
+          >
+            </pagination-controls
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  

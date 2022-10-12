@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
-import { Property } from 'src/app/_models/property';
+import { PropertyMetadataDetails } from 'src/app/_models/propertyMetadataDetails';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { PropertyMetadataService } from 'src/app/_services/property-metadata.service';
 import { PropertyService } from 'src/app/_services/property.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
-  selector: 'app-property-list',
-  templateUrl: './property-list.component.html',
-  styleUrls: ['./property-list.component.css'],
+  selector: 'app-property.metadata-list',
+  templateUrl: './property.metadata-list.component.html',
+  styleUrls: ['./property.metadata-list.component.css']
 })
-export class PropertyListComponent implements OnInit {
-  properties: Property[];
+export class PropertyMetadataListComponent implements OnInit {properties: PropertyMetadataDetails[];
   pagination: Pagination;
   page: number = 1;
   count: number = 0;
@@ -25,7 +25,8 @@ export class PropertyListComponent implements OnInit {
     private propertyService: PropertyService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private propertyMetadataService: PropertyMetadataService
   ) {}
 
   ngOnInit(): void {
@@ -52,14 +53,14 @@ export class PropertyListComponent implements OnInit {
 
   loadProperties() {
     const sourceId = this.authService.getSourceFromStorage();
-    this.propertyService
-      .getProperties(
+    this.propertyMetadataService
+      .getPropertiesMetadatas(
         sourceId,
         this.pagination.currentPage,
         this.pagination.itemsPerPage
       )
       .subscribe(
-        (res: PaginatedResult<Property[]>) => {
+        (res: PaginatedResult<PropertyMetadataDetails[]>) => {
           this.properties = res.result;
           this.pagination = res.pagination;
           this.page = res.pagination.currentPage;
@@ -93,16 +94,12 @@ export class PropertyListComponent implements OnInit {
     }
   }
 
-  showAddPropertyForm() {
-    this.router.navigate(['/property/add']);
-  }
-
-  removeProperty(propertyId: number) {
-    this.propertyService.deleteProperty(propertyId).subscribe(() => {
-      this.alertify.success('Property has been deleted succesfully');
+  removePropertyMeta(propertyId: number) {
+    this.propertyMetadataService.deleteMetadataProperty(propertyId).subscribe(() => {
+      this.alertify.success("The metadata has been deleted succesfully");
     }, error => {
-      this.alertify.error('Failed to delete the property');
+      this.alertify.error('Failed to delete the metadata');
     });
   };
-  
+
 }
