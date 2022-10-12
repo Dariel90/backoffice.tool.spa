@@ -58,7 +58,7 @@
                 <div *ngIf="this.property.hasMetadata">
                   <a
                     [routerLink]="[
-                      '/property/metadata/',
+                      '/metadata/',
                       this.property.id,
                       'edit'
                     ]"
@@ -69,9 +69,7 @@
                 <div *ngIf="!this.property.hasMetadata">
                   <a
                     [routerLink]="[
-                      '/property/metadata/',
-                      this.property.id,
-                      'add'
+                      '/metadata/add'
                     ]"
                     ><button type="button" class="btn btn-dark btn-sm mr-2">
                       <i class="fas fa-scroll"></i></button

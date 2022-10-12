@@ -32,7 +32,7 @@ export class PropertyMetadataEditComponent implements OnInit {
     message: ['',[Validators.required]],
     property:  ['',[Validators.required]],
     newDatatype: ['', [Validators.required]],
-  });;
+  });
   editPropertyMeta: AddUpdatePropertyMeta = {
     propertyId: 0,
     propertyMetadataDescriptor: '',
@@ -219,6 +219,14 @@ export class PropertyMetadataEditComponent implements OnInit {
       propertyReplaceValue: '',
       propertyReplaceValueDataType: 0,
     };
+    this.registerForm = this.formBuilder.group({
+      name: [{ value: '', disabled: false }, [Validators.required]],
+      oldValue: ['', [Validators.required]],
+      newValue: ['', [Validators.required]],
+      message: ['',[Validators.required]],
+      property:  ['',[Validators.required]],
+      newDatatype: ['', [Validators.required]],
+    });
     this.inputName.nativeElement.focus();
     this.submitted = false;
   }
