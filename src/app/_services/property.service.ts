@@ -11,7 +11,7 @@ import { AddUpdateProperty } from '../_models/addUpdateProperty';
   providedIn: 'root'
 })
 export class PropertyService {
-  baseUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl;
   
   constructor(private http: HttpClient) { }
 

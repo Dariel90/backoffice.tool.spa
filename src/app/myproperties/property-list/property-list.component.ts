@@ -13,12 +13,12 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   styleUrls: ['./property-list.component.css'],
 })
 export class PropertyListComponent implements OnInit {
-  properties: Property[];
-  pagination: Pagination;
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 5;
-  tableSizes: any = [5, 10, 50, 100];
+  protected properties: Property[];
+  private pagination: Pagination;
+  protected page: number = 1;
+  protected count: number = 0;
+  protected tableSize: number = 5;
+  protected tableSizes: any = [5, 10, 50, 100];
 
   constructor(
     private router: Router,
@@ -88,7 +88,7 @@ export class PropertyListComponent implements OnInit {
       case 6:
         return 'DateTime';
       default:
-        return "";
+        return '';
         break;
     }
   }
@@ -98,11 +98,13 @@ export class PropertyListComponent implements OnInit {
   }
 
   removeProperty(propertyId: number) {
-    this.propertyService.deleteProperty(propertyId).subscribe(() => {
-      this.alertify.success('Property has been deleted succesfully');
-    }, error => {
-      this.alertify.error('Failed to delete the property');
-    });
-  };
-  
+    this.propertyService.deleteProperty(propertyId).subscribe(
+      () => {
+        this.alertify.success('Property has been deleted succesfully');
+      },
+      (error) => {
+        this.alertify.error('Failed to delete the property');
+      }
+    );
+  }
 }

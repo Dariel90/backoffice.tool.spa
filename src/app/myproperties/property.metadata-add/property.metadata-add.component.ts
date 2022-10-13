@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AddUpdatePropertyMeta } from 'src/app/_models/addUpdatePropertyMeta';
-import { ActivatedRoute } from '@angular/router';
 import { AddUpdateProperty } from 'src/app/_models/addUpdateProperty';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
@@ -25,8 +24,8 @@ import { Property } from 'src/app/_models/property';
 export class PropertyMetadataAddComponent implements OnInit {
   @ViewChild('inputName') inputName: ElementRef;
   @ViewChild('editForm', { static: true }) editForm: NgForm;
-  registerForm: FormGroup;
-  newPropertyMeta: AddUpdatePropertyMeta = {
+  protected registerForm: FormGroup;
+  protected newPropertyMeta: AddUpdatePropertyMeta = {
     propertyId: 0,
     propertyMetadataDescriptor: '',
     propertyMetadataId: 0,
@@ -34,7 +33,7 @@ export class PropertyMetadataAddComponent implements OnInit {
     propertyReplaceValue: '',
     propertyReplaceValueDataType: 0,
   };
-  editProperty: AddUpdateProperty = {
+  protected editProperty: AddUpdateProperty = {
     propertyId: 0,
     name: '',
     type: -1,
@@ -43,7 +42,7 @@ export class PropertyMetadataAddComponent implements OnInit {
     myPropertyId: -1,
   };
 
-  dataTypes = [
+  protected dataTypes = [
     { value: 0, display: 'Integer' },
     { value: 1, display: 'Float' },
     { value: 2, display: 'Double' },
@@ -52,10 +51,10 @@ export class PropertyMetadataAddComponent implements OnInit {
     { value: 5, display: 'Boolean' },
     { value: 6, display: 'DateTime' },
   ];
-  type: number = -1;
-  sourceId: number | null;
-  messages: Message[];  
-  properties: Property[];
+  private type: number = -1;
+  private sourceId: number | null;
+  protected messages: Message[];
+  protected properties: Property[];
 
   submitted = false;
   @HostListener('window:beforeunload', ['$event'])
@@ -65,7 +64,6 @@ export class PropertyMetadataAddComponent implements OnInit {
     }
   }
   constructor(
-    private route: ActivatedRoute,
     private propertyMetadataService: PropertyMetadataService,
     private alertify: AlertifyService,
     private authService: AuthService,
@@ -87,28 +85,40 @@ export class PropertyMetadataAddComponent implements OnInit {
     this.type = selectEl as number;
     if (this.type >= 0 && this.editProperty.type >= 0) {
       if (this.type != this.editProperty.type) {
-        //this.alertify.error("The properties types doesn't match");
-        this.registerForm.controls['newDatatype'].setErrors({'typeIsForbidden': true});
+        this.registerForm.controls['newDatatype'].setErrors({
+          typeIsForbidden: true,
+        });
       } else {
-        this.registerForm.controls['property'].setErrors({'typeIsForbidden': null});
-        this.registerForm.controls['newDatatype'].setErrors({'typeIsForbidden': null});
+        this.registerForm.controls['property'].setErrors({
+          typeIsForbidden: null,
+        });
+        this.registerForm.controls['newDatatype'].setErrors({
+          typeIsForbidden: null,
+        });
         this.registerForm.controls['property'].updateValueAndValidity();
         this.registerForm.controls['newDatatype'].updateValueAndValidity();
       }
     }
   }
 
-  updateBasePropType(e: any){
+  updateBasePropType(e: any) {
     const selectEl = e.target;
-    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    const attrVal: number = selectEl.options[
+      selectEl.selectedIndex
+    ].getAttribute('type') as number;
     this.editProperty.type = Number(attrVal);
-    if( this.type >= 0 && this.editProperty.type >= 0){
-      if(this.type != this.editProperty.type){
-        //this.alertify.error("The properties types doesn't match");
-        this.registerForm.controls['property'].setErrors({'typeIsForbidden': true});
-      }else{
-        this.registerForm.controls['property'].setErrors({'typeIsForbidden': null});
-        this.registerForm.controls['newDatatype'].setErrors({'typeIsForbidden': null});
+    if (this.type >= 0 && this.editProperty.type >= 0) {
+      if (this.type != this.editProperty.type) {
+        this.registerForm.controls['property'].setErrors({
+          typeIsForbidden: true,
+        });
+      } else {
+        this.registerForm.controls['property'].setErrors({
+          typeIsForbidden: null,
+        });
+        this.registerForm.controls['newDatatype'].setErrors({
+          typeIsForbidden: null,
+        });
         this.registerForm.controls['property'].updateValueAndValidity();
         this.registerForm.controls['newDatatype'].updateValueAndValidity();
       }
@@ -120,8 +130,8 @@ export class PropertyMetadataAddComponent implements OnInit {
       name: [{ value: '', disabled: false }, [Validators.required]],
       oldValue: ['', [Validators.required]],
       newValue: ['', [Validators.required]],
-      message: ['',[Validators.required]],
-      property:  ['',[Validators.required]],
+      message: ['', [Validators.required]],
+      property: ['', [Validators.required]],
       newDatatype: ['', [Validators.required]],
     });
   }
@@ -150,15 +160,8 @@ export class PropertyMetadataAddComponent implements OnInit {
       return;
     }
     var formValues = JSON.stringify(this.registerForm.value, null, 2);
-    // var propertyDataType: number = this.f['newDatatype'].value as number;
-    // if (propertyDataType !== Number(this.editProperty.type)) {
-    //   this.alertify.message("The properties types doesn't match");
-    //   return;
-    // }
     this.addOrUpdateMetadataProperty(formValues);
   }
-
-  
 
   addOrUpdateMetadataProperty(formValues: string) {
     const formParam = JSON.parse(formValues) as any;

@@ -30,8 +30,8 @@ import Validation from '../../utils/validation';
 })
 export class PropertyAddComponent implements OnInit {
   @ViewChild('inputName') inputName: ElementRef;
-  registerForm: FormGroup;
-  newProperty: AddUpdateProperty = {
+  protected registerForm: FormGroup;
+  protected newProperty: AddUpdateProperty = {
     propertyId: 0,
     name: '',
     type: 0,
@@ -39,13 +39,13 @@ export class PropertyAddComponent implements OnInit {
     isYours: true,
     myPropertyId: -1,
   };
-  propType: number = -1;
-  mySysPropType: number = -1;
-  systemProperties: Property[];
-  sourceId: number | null;
-  messages: Message[];
-  systemMessages: Message[];
-  systemMessage: Message = {
+  protected propType: number = -1;
+  protected mySysPropType: number = -1;
+  protected systemProperties: Property[];
+  protected sourceId: number | null;
+  protected messages: Message[];
+  protected systemMessages: Message[];
+  protected systemMessage: Message = {
     id: -1,
     description: '',
     kafkaTopic: '',
@@ -55,9 +55,9 @@ export class PropertyAddComponent implements OnInit {
     sourceId: null,
     sourceName: '',
   };
-  submitted = false;
+  protected submitted = false;
 
-  dataTypes = [
+  protected dataTypes = [
     { value: 0, display: 'Integer' },
     { value: 1, display: 'Float' },
     { value: 2, display: 'Double' },
@@ -67,7 +67,7 @@ export class PropertyAddComponent implements OnInit {
     { value: 6, display: 'DateTime' },
   ];
 
-  forbiddenPropertyNames: string[];
+  protected forbiddenPropertyNames: string[];
 
   constructor(
     private propertyService: PropertyService,
@@ -125,7 +125,6 @@ export class PropertyAddComponent implements OnInit {
     const type = Number(this.propType);
     if( type >= 0 && this.mySysPropType >= 0){
       if(type != this.mySysPropType){
-        //this.alertify.error("The properties types doesn't match");
         this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': true});
       }else{
         this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': false});

@@ -26,7 +26,6 @@ export class SourceEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      // tslint:disable-next-line: no-string-literal
       this.source = {
         sourceId: data['source'].id,
         name: data['source'].name,

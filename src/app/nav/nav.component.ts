@@ -6,29 +6,36 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
-  model: any = {};
-  sourceId: number
-  constructor(public authService: AuthService, private alertify: AlertifyService,
-              private router: Router) { }
+  protected model: any = {};
+  protected sourceId: number;
+  constructor(
+    public authService: AuthService,
+    private alertify: AlertifyService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    if(this.sourceId == undefined){
+    if (this.sourceId == undefined) {
       this.sourceId = this.authService.getSourceFromStorage();
     }
   }
 
   login() {
-    this.authService.login(this.model).subscribe(next => {      
-      this.sourceId = this.authService.sourceId;
-      this.alertify.success('Logged Successfully');
-    }, error => {
-      this.alertify.error(error);
-    }, () => {
-      this.router.navigate(['/source/',this.authService.sourceId]);
-    });
+    this.authService.login(this.model).subscribe(
+      (next) => {
+        this.sourceId = this.authService.sourceId;
+        this.alertify.success('Logged Successfully');
+      },
+      (error) => {
+        this.alertify.error(error);
+      },
+      () => {
+        this.router.navigate(['/source/', this.authService.sourceId]);
+      }
+    );
   }
 
   loggedIn() {
@@ -42,5 +49,4 @@ export class NavComponent implements OnInit {
     this.alertify.message('Logged out');
     this.router.navigate(['/home']);
   }
-
 }

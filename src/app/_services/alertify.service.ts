@@ -1,33 +1,35 @@
 import { Injectable } from '@angular/core';
 import * as alertify from 'alertifyjs';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlertifyService {
-
-constructor() { }
+  constructor() {}
 
   confirm(title: string, message: string, okCallback: () => any) {
-    alertify.confirm(message, (e: any) => {
-      if (e) {
-        okCallback();
-      } else {}
-    }).setHeader(title);
+    alertify
+      .confirm(message, (e: any) => {
+        if (e) {
+          okCallback();
+        } else {
+        }
+      })
+      .setHeader(title);
   }
 
-  success(message: string ) {
+  success(message: string) {
     alertify.success(message);
   }
 
-  error(message: string ) {
+  error(message: string) {
     alertify.error(message);
   }
 
-  warning(message: string ) {
+  warning(message: string) {
     alertify.warning(message);
   }
 
-  message(message: string ) {
+  message(message: string) {
     alertify.message(message);
   }
 }

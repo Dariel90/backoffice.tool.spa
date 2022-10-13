@@ -10,7 +10,7 @@ import { SourceService } from 'src/app/_services/source.service';
   styleUrls: ['./source-detail.component.css']
 })
 export class SourceDetailComponent implements OnInit {
-  source: Source;
+  protected source: Source;
   constructor(private sourceService: SourceService, private alertify: AlertifyService,
     private route: ActivatedRoute) { }
 

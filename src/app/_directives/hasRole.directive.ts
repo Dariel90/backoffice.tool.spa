@@ -14,12 +14,9 @@ export class HasRoleDirective implements OnInit {
 
  ngOnInit() {
    const userRoles = this.authService.decodedToken.role as Array<string>;
-   // if no roles clear the viewContainerRef
    if (!userRoles) {
      this.viewContainerRef.clear();
    }
-
-   // if user has role need render the component
    if (this.authService.roleMatch(this.appHasRole)) {
      this.isVisible = true;
      this.viewContainerRef.createEmbeddedView(this.templateRef);

@@ -114,7 +114,6 @@ export class PropertyMetadataEditComponent implements OnInit {
     this.type = selectEl as number;
     if (this.type >= 0 && this.editProperty.type >= 0) {
       if (this.type != this.editProperty.type) {
-        //this.alertify.error("The properties types doesn't match");
         this.registerForm.controls['newDatatype'].setErrors({'typeIsForbidden': true});
       } else {
         this.registerForm.controls['property'].setErrors({'typeIsForbidden': null});
@@ -131,7 +130,6 @@ export class PropertyMetadataEditComponent implements OnInit {
     this.editProperty.type = Number(attrVal);
     if( this.type >= 0 && this.editProperty.type >= 0){
       if(this.type != this.editProperty.type){
-        //this.alertify.error("The properties types doesn't match");
         this.registerForm.controls['property'].setErrors({'typeIsForbidden': true});
       }else{
         this.registerForm.controls['property'].setErrors({'typeIsForbidden': null});
@@ -177,11 +175,6 @@ export class PropertyMetadataEditComponent implements OnInit {
       return;
     }
     var formValues = JSON.stringify(this.registerForm.value, null, 2);
-    // var propertyDataType: number = this.f['newDatatype'].value as number;
-    // if (propertyDataType !== Number(this.editProperty.type)) {
-    //   this.alertify.message("The properties types doesn't match");
-    //   return;
-    // }
     this.addOrUpdateMetadataProperty(formValues);
   }
 

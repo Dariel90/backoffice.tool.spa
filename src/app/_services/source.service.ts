@@ -8,17 +8,19 @@ import { Source } from '../_models/source';
 import { AddUpdateSource } from '../_models/addUpdateSource';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SourceService {
-  baseUrl = environment.apiUrl;
-constructor(private http: HttpClient) { }
+  private baseUrl = environment.apiUrl;
+  constructor(private http: HttpClient) {}
 
   addOrUpdateSource(source: AddUpdateSource) {
     return this.http.post(this.baseUrl + 'source/AddOrUpdateSource', source);
   }
 
-  getSource(Id: number):Observable<Source>{
-    return this.http.get<Source>(this.baseUrl + `source/GetSourceDetails?Id=${Id}`);
+  getSource(Id: number): Observable<Source> {
+    return this.http.get<Source>(
+      this.baseUrl + `source/GetSourceDetails?Id=${Id}`
+    );
   }
 }

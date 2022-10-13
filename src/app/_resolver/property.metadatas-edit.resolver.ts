@@ -3,9 +3,6 @@ import { AlertifyService } from '../_services/alertify.service';
 import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import { Property } from '../_models/property';
-import { PaginatedResult } from '../_models/pagination';
-import { AuthService } from '../_services/auth.service';
 import { PropertyMetadataService } from '../_services/property-metadata.service';
 import { PropertyMetadataDetails } from '../_models/propertyMetadataDetails';
 
@@ -15,7 +12,6 @@ export class PropertyMetadataEditResolver
 {
   constructor(
     private metadataService: PropertyMetadataService,
-    private authService: AuthService,
     private router: Router,
     private alertify: AlertifyService
   ) {}

@@ -13,20 +13,27 @@ import { NgModule } from '@angular/core';
 @Component({
   selector: 'app-message-list',
   templateUrl: './message-list.component.html',
-  styleUrls: ['./message-list.component.css']
+  styleUrls: ['./message-list.component.css'],
 })
 export class MessageListComponent implements OnInit {
-  messages: Message[];
-  pagination: Pagination;
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 5;
-  tableSizes: any = [5, 10, 50, 100];
+  protected messages: Message[];
+  private pagination: Pagination;
+  protected page: number = 1;
+  protected count: number = 0;
+  protected tableSize: number = 5;
+  protected tableSizes: any = [5, 10, 50, 100];
 
-  constructor(private router: Router,private messageService: MessageService, private alertify: AlertifyService, private route: ActivatedRoute, private authService: AuthService, private topicService: TopicService) { }
+  constructor(
+    private router: Router,
+    private messageService: MessageService,
+    private alertify: AlertifyService,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private topicService: TopicService
+  ) {}
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.messages = data['messages'].result;
       this.pagination = data['messages'].pagination;
       this.page = this.pagination.currentPage;
@@ -53,28 +60,39 @@ export class MessageListComponent implements OnInit {
   }
 
   loadMessages() {
-    this.messageService.getPaginatedMessages(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<Message[]>) => {
-      this.messages = res.result;
-      this.pagination = res.pagination;
-      this.page = res.pagination.currentPage;
-      this.count = res.pagination.totalItems;
-    }, error => {
-      this.alertify.error(error);
-    });
+    this.messageService
+      .getPaginatedMessages(
+        this.pagination.currentPage,
+        this.pagination.itemsPerPage
+      )
+      .subscribe(
+        (res: PaginatedResult<Message[]>) => {
+          this.messages = res.result;
+          this.pagination = res.pagination;
+          this.page = res.pagination.currentPage;
+          this.count = res.pagination.totalItems;
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
   }
 
   showAddMessageForm() {
-    this.router.navigate(['/message/add',this.authService.getSourceFromStorage()]);
-
+    this.router.navigate([
+      '/message/add',
+      this.authService.getSourceFromStorage(),
+    ]);
   }
 
   removeMessage(messageId: number) {
-     this.messageService.deleteMessage(messageId).subscribe(() => {
-      this.alertify.success('Message has been deleted succesfully');
-    }, error => {
-      this.alertify.error('Failed to delete the message');
-    });
-  };
-  
-
+    this.messageService.deleteMessage(messageId).subscribe(
+      () => {
+        this.alertify.success('Message has been deleted succesfully');
+      },
+      (error) => {
+        this.alertify.error('Failed to delete the message');
+      }
+    );
+  }
 }

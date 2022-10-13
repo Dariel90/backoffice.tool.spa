@@ -22,7 +22,7 @@ import { PropertyService } from 'src/app/_services/property.service';
 })
 export class PropertyEditComponent implements OnInit {
   @ViewChild('inputName') inputName: ElementRef;
-  registerForm: FormGroup = this.formBuilder.group({
+  protected registerForm: FormGroup = this.formBuilder.group({
     name: [
       { value: '', disabled: false },
       [Validators.required, this.validateName()],
@@ -32,7 +32,7 @@ export class PropertyEditComponent implements OnInit {
     sysMessage: ['', [Validators.required]],
     sysProperty: ['', [Validators.required]],
   });
-  editProperty: AddUpdateProperty = {
+  protected editProperty: AddUpdateProperty = {
     propertyId: 0,
     name: '',
     type: 0,
@@ -40,13 +40,13 @@ export class PropertyEditComponent implements OnInit {
     isYours: true,
     myPropertyId: -1,
   };
-  propType: number = -1;
-  mySysPropType: number;
-  systemProperties: Property[];
-  sourceId: number | null;
-  messages: Message[];
-  systemMessages: Message[];
-  systemMessage: MessageData = {
+  protected propType: number = -1;
+  protected mySysPropType: number;
+  protected systemProperties: Property[];
+  protected sourceId: number | null;
+  protected messages: Message[];
+  protected systemMessages: Message[];
+  protected systemMessage: MessageData = {
     id: -1,
     description: '',
     kafkaTopic: '',
@@ -55,9 +55,9 @@ export class PropertyEditComponent implements OnInit {
     sourceId: null,
     sourceName: '',
   };
-  submitted = false;
+  protected submitted = false;
 
-  dataTypes = [
+  protected dataTypes = [
     { value: 0, display: 'Integer' },
     { value: 1, display: 'Float' },
     { value: 2, display: 'Double' },
@@ -66,8 +66,8 @@ export class PropertyEditComponent implements OnInit {
     { value: 5, display: 'Boolean' },
     { value: 6, display: 'DateTime' },
   ];
-  isAnEditionOfAnExternalProperty: boolean;
-  forbiddenPropertyNames: string[];
+  private isAnEditionOfAnExternalProperty: boolean;
+  private forbiddenPropertyNames: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -81,7 +81,6 @@ export class PropertyEditComponent implements OnInit {
   ngOnInit(): void {
     this.forbiddenPropertyNames = [];
     this.route.data.subscribe((data) => {
-      // tslint:disable-next-line: no-string-literal
       this.editProperty = {
         propertyId: data['property'].id,
         name: data['property'].name,
@@ -173,23 +172,30 @@ export class PropertyEditComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  UpdateDataTypeSelected(e: any){
+  UpdateDataTypeSelected(e: any) {
     const selectEl = e.target;
-    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    const attrVal: number = selectEl.options[
+      selectEl.selectedIndex
+    ].getAttribute('type') as number;
     this.propType = attrVal as number;
   }
 
-  UpdateMySysPropType(e: any){
+  UpdateMySysPropType(e: any) {
     const selectEl = e.target;
-    const attrVal:number = selectEl.options[selectEl.selectedIndex].getAttribute('type') as number;
+    const attrVal: number = selectEl.options[
+      selectEl.selectedIndex
+    ].getAttribute('type') as number;
     this.mySysPropType = Number(attrVal);
     const type = Number(this.propType);
-    if( type >= 0 && this.mySysPropType >= 0){
-      if(type != this.mySysPropType){
-        //this.alertify.error("The properties types doesn't match");
-        this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': true});
-      }else{
-        this.registerForm.controls['sysProperty'].setErrors({'typeIsForbidden': false});
+    if (type >= 0 && this.mySysPropType >= 0) {
+      if (type != this.mySysPropType) {
+        this.registerForm.controls['sysProperty'].setErrors({
+          typeIsForbidden: true,
+        });
+      } else {
+        this.registerForm.controls['sysProperty'].setErrors({
+          typeIsForbidden: false,
+        });
       }
     }
   }
@@ -201,16 +207,14 @@ export class PropertyEditComponent implements OnInit {
       return;
     }
     var formValues = JSON.stringify(this.registerForm.value, null, 2);
-    var propertyDataType: number = this.f["datatype"].value as number;
-    if(propertyDataType !== Number(this.mySysPropType)){
+    var propertyDataType: number = this.f['datatype'].value as number;
+    if (propertyDataType !== Number(this.mySysPropType)) {
       this.alertify.message("The properties types doesn't match");
       return;
     }
-      
+
     this.addOrUpdateProperty(formValues);
   }
-
-  
 
   loadSystemMessageProperties(e: any) {
     if (e.target.value != '') {
@@ -231,8 +235,7 @@ export class PropertyEditComponent implements OnInit {
 
   loadForbbidenPropertiesNames(e: any) {
     const messageId = e.target.value as number;
-    if(messageId as any != "")
-      this.loadForbbidenProperties(messageId);
+    if ((messageId as any) != '') this.loadForbbidenProperties(messageId);
   }
 
   loadForbbidenProperties(messageId: number) {

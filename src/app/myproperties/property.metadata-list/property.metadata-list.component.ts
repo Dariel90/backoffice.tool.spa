@@ -5,24 +5,20 @@ import { PropertyMetadataDetails } from 'src/app/_models/propertyMetadataDetails
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { PropertyMetadataService } from 'src/app/_services/property-metadata.service';
-import { PropertyService } from 'src/app/_services/property.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-
 @Component({
   selector: 'app-property.metadata-list',
   templateUrl: './property.metadata-list.component.html',
-  styleUrls: ['./property.metadata-list.component.css']
+  styleUrls: ['./property.metadata-list.component.css'],
 })
-export class PropertyMetadataListComponent implements OnInit {properties: PropertyMetadataDetails[];
-  pagination: Pagination;
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 5;
-  tableSizes: any = [5, 10, 50, 100];
+export class PropertyMetadataListComponent implements OnInit {
+  protected properties: PropertyMetadataDetails[];
+  private pagination: Pagination;
+  protected page: number = 1;
+  protected count: number = 0;
+  protected tableSize: number = 5;
+  protected tableSizes: any = [5, 10, 50, 100];
 
   constructor(
-    private router: Router,
-    private propertyService: PropertyService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -89,17 +85,19 @@ export class PropertyMetadataListComponent implements OnInit {properties: Proper
       case 6:
         return 'DateTime';
       default:
-        return "";
+        return '';
         break;
     }
   }
 
   removePropertyMeta(propertyId: number) {
-    this.propertyMetadataService.deleteMetadataProperty(propertyId).subscribe(() => {
-      this.alertify.success("The metadata has been deleted succesfully");
-    }, error => {
-      this.alertify.error('Failed to delete the metadata');
-    });
-  };
-
+    this.propertyMetadataService.deleteMetadataProperty(propertyId).subscribe(
+      () => {
+        this.alertify.success('The metadata has been deleted succesfully');
+      },
+      (error) => {
+        this.alertify.error('Failed to delete the metadata');
+      }
+    );
+  }
 }
