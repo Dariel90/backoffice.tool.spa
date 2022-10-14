@@ -18,6 +18,12 @@ export class SourceService {
     return this.http.post(this.baseUrl + 'source/AddOrUpdateSource', source);
   }
 
+  getAllSources(){
+    return this.http.get<Source[]>(
+      this.baseUrl + `source/GetAllSources?`
+    );
+  }
+
   getSource(Id: number): Observable<Source> {
     return this.http.get<Source>(
       this.baseUrl + `source/GetSourceDetails?Id=${Id}`

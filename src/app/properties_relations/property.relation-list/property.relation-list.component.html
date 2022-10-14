@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <h1 class="text-center">Properties Relationship List</h1>
+        <div class="mb-4 d-flex flex-row-reverse">
+          <div class="bd-highlight">
+            <select (change)="onTableSizeChange($event)" class="custom-select">
+              <option *ngFor="let size of tableSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <div class="mr-2">
+            <a class="float-end" [routerLink]="['/properties/relations/add']"
+              ><button class="btn btn-success"><i class="far fa-plus-square"></i> New Relationship</button></a
+            >
+          </div>
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Relationship Name</th>
+              <th class="text-center">source Relation</th>
+              <th class="text-center">Property X</th>
+              <th class="text-center">System Property</th>
+              <th class="text-center">Property Y</th>
+              <th class="text-center">Creation Date</th>
+              <th class="text-center">Strongest Property</th>
+              <th class="text-center">Edit/Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let relationship of relationships
+                  | paginate
+                    : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: count
+                      };
+                let i = index">
+              
+              <td scope="row" class="text-center">{{ this.relationship.relationshipId }}</td>
+              <td scope="row" class="text-center">{{ this.relationship.relationshipName}}</td>
+              <td>{{ this.relationship.dataRelationship.sourceXName }} / {{ this.relationship.dataRelationship.sourceYName }}</td>
+              <td>{{ this.relationship.dataRelationship.propertyRelationship.propertySourceX.propertyName }}</td>
+              <td>{{ this.relationship.dataRelationship.propertyRelationship.systemProperty.propertyName  }}</td>
+              <td>{{ this.relationship.dataRelationship.propertyRelationship.propertySourceY.propertyName }}</td>
+              <td scope="row" class="text-center">{{ this.relationship.creationDate | date: "mediumDate" }}</td>
+              <td>{{ this.relationship.dataRelationship.propertyRelationship.sourceStrongestProp?.propertyName }}</td>              
+              <td class="mx-auto text-center">
+                <a [routerLink]="['/relationship/', this.relationship.relationshipId, 'edit']"
+                  ><button type="button" class="btn btn-info btn-sm mr-2">
+                    <i class="fa fa-pencil"></i></button
+                ></a>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm mr-2"
+                  (click)="removeRelationship(this.relationship.relationshipId)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="d-flex justify-content-center text-center mt-3">
+          <pagination-controls 
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"
+          >
+            </pagination-controls
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  

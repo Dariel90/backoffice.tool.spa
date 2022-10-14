@@ -1,0 +1,431 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <h1>New Properties Relation</h1>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header bg-transparent">
+          <div class="ml-5">
+            <img
+              class="card-img-center img-thumbnail ml-5"
+              src="../../../assets/relationship.png"
+            />
+          </div>
+        </div>
+        <div class="ml-5 d-flex justify-content-end">
+          <button
+            class="btn btn-info btn-sm ml-3 mt-3 mr-4"
+            (click)="this.cleanInputs()"
+          >
+            <i class="fa fas fa-plus-square"></i> Add New
+          </button>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="card-body mt-2">
+            <div class="form-group" [class.has-error]="">
+              <label for="relationshipName">Property Name:</label>
+              <input
+                id="relationshipName"
+                #inputName
+                required
+                type="text"
+                class="form-control ml-1"
+                formControlName="relationshipName"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    registerForm.controls['relationshipName'].errors
+                }"
+              />
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['relationshipName'].valid &&
+                  registerForm['controls']['relationshipName'].touched
+                "
+              ><span
+                  *ngIf="
+                    registerForm['controls']['relationshipName'].hasError(
+                      'required'
+                    )
+                  "
+                  >Field is required</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="sysMessage">System Message:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="sysMessageId"
+                formControlName="sysMessage"
+                (change)="this.loadSystemMessageProperties($event)"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['sysMessage'].errors
+                }"
+              >
+                <option value="">Select System Message</option>
+                <option
+                  *ngFor="let message of systemMessages"
+                  [value]="message.id"
+                >
+                  {{ message.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['sysMessage'].valid &&
+                  registerForm['controls']['sysMessage'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['sysMessage'].hasError('required')
+                  "
+                  >Please select the system message</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="sysProperty">System Property:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="sysPropertyId"
+                formControlName="sysProperty"
+                [ngClass]="{
+                  'is-invalid': submitted && f['sysProperty'].errors
+                }"
+                (change)="this.updateMySysPropType($event)"
+              >
+                <option value="">Select System Property</option>
+                <option
+                  *ngFor="let property of systemProperties"
+                  [value]="property.id"
+                  [attr.type]="property.type"
+                >
+                  Data Type:
+                  {{ this.getTypeByNumber(property.type) }} |
+                  {{ property.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['sysProperty'].valid &&
+                  registerForm['controls']['sysProperty'].touched
+                "
+              >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['sysProperty'].hasError(
+                      'typeIsForbidden'
+                    )
+                  "
+                  >The system property's type doesn't match with the new
+                  property data type selected</span
+                >
+                <span *ngIf="f['sysProperty'].hasError('required')"
+                  >Please select the system property</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="sourceX">Source X:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="sourceXId"
+                formControlName="sourceX"
+                [ngClass]="{
+                  'is-invalid': submitted && f['sourceX'].errors
+                }"
+                (change)="this.loadMessageFormSourceX($event)"
+              >
+                <option value="">Select Source</option>
+                <option *ngFor="let source of sources" [value]="source.id">
+                  {{ source.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['sourceX'].valid &&
+                  registerForm['controls']['sourceX'].touched
+                "
+              >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['sourceX'].hasError(
+                      'sameSourceIsForbidden'
+                    )
+                  "
+                  >The system property's type doesn't match with the new
+                  property data type selected</span
+                >
+                <span *ngIf="f['sourceX'].hasError('required')"
+                  >Please select the system property</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="messageSourceX">Message Form Source X:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="messageSourceXId"
+                formControlName="messageSourceX"
+                (change)="this.loadMessagePropertiesFromSourceX($event)"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['messageSourceX'].errors
+                }"
+              >
+                <option value="">Select System Message</option>
+                <option
+                  *ngFor="let message of messagesFromSourceX"
+                  [value]="message.id"
+                >
+                  {{ message.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['messageSourceX'].valid &&
+                  registerForm['controls']['messageSourceX'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['messageSourceX'].hasError(
+                      'required'
+                    )
+                  "
+                  >Please select the system message</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="sourceXProId"
+                >Message's Properties Form Source X:</label
+              >
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="sourceXProId"
+                formControlName="sourceXProp"
+                [ngClass]="{
+                  'is-invalid': submitted && f['sourceXProp'].errors
+                }"
+                (change)="this.updatePropTypeFromSourceX($event)"
+              >
+                <option value="">Select System Property</option>
+                <option
+                  *ngFor="let property of propertiesFromSourceX"
+                  [value]="property.id"
+                  [attr.type]="property.type"
+                >
+                  Data Type:
+                  {{ this.getTypeByNumber(property.type) }} |
+                  {{ property.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['sourceXProp'].valid &&
+                  registerForm['controls']['sourceXProp'].touched
+                "
+              >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['sourceXProp'].hasError(
+                      'typeIsForbidden'
+                    )
+                  "
+                  >The system property's data type doesn't match with the system
+                  property selected</span
+                >
+                <span *ngIf="f['sourceXProp'].hasError('required')"
+                  >Please select the system property</span
+                >
+              </span>
+            </div>
+            <!-- From Source Y -->
+            <div class="form-group">
+              <label for="sourceYId">Source Y:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="sourceYId"
+                formControlName="sourceY"
+                [ngClass]="{
+                  'is-invalid': submitted && f['sourceY'].errors
+                }"
+                (change)="this.loadMessageFormSourceY($event)"
+              >
+                <option value="">Select Source</option>
+                <option *ngFor="let source of sources" [value]="source.id">
+                  {{ source.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['sourceY'].valid &&
+                  registerForm['controls']['sourceY'].touched
+                "
+              >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['sourceY'].hasError(
+                      'sameSourceIsForbidden'
+                    )
+                  "
+                  >The same source can not be selected</span
+                >
+                <span *ngIf="f['sourceY'].hasError('sourceY')"
+                  >Please select the system property</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="messageSourceYId">Message Form Source Y:</label>
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="messageSourceYId"
+                formControlName="messageSourceY"
+                (change)="this.loadMessagePropertiesFromSourceY($event)"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && registerForm.controls['messageSourceY'].errors
+                }"
+              >
+                <option value="">Select Message</option>
+                <option
+                  *ngFor="let message of messagesFromSourceY"
+                  [value]="message.id"
+                >
+                  {{ message.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['messageSourceY'].valid &&
+                  registerForm['controls']['messageSourceY'].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm['controls']['messageSourceY'].hasError(
+                      'required'
+                    )
+                  "
+                  >Please select the source message</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="sourceYPropId"
+                >Message's Properties Form Source Y:</label
+              >
+              <select
+                required
+                class="form-control ml-1 flex-fill"
+                id="sourceYPropId"
+                formControlName="sourceYProp"
+                [ngClass]="{
+                  'is-invalid': submitted && f['sourceYProp'].errors
+                }"
+                (change)="this.updatePropTypeFromSourceY($event)"
+              >
+                <option value="">Select Property</option>
+                <option
+                  *ngFor="let property of propertiesFromSourceY"
+                  [value]="property.id"
+                  [attr.type]="property.type"
+                >
+                  Data Type:
+                  {{ this.getTypeByNumber(property.type) }} |
+                  {{ property.name }}
+                </option>
+              </select>
+              <span
+                class="help-block mt-5 pl-1 text-red"
+                *ngIf="
+                  !registerForm.controls['sourceYProp'].valid &&
+                  registerForm['controls']['sourceYProp'].touched
+                "
+              >
+                <span
+                  class="already-exists"
+                  *ngIf="
+                    registerForm['controls']['sourceYProp'].hasError(
+                      'typeIsForbidden'
+                    )
+                  "
+                  >The system property's data type doesn't match with the system
+                  property selected</span
+                >
+                <span *ngIf="f['sourceYProp'].hasError('required')"
+                  >Please select the source property</span
+                >
+              </span>
+            </div>
+            <div class="form-group">
+              <fieldset class="reset">
+                <legend class="reset">Select the strongest property:</legend>              
+              <div class="form-check">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="n">
+                <label class="form-check-label" for="inlineRadio3">None</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="s">
+                <label class="form-check-label" for="inlineRadio1">System Property</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="x">
+                <label class="form-check-label" for="inlineRadio2">Source X Property</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="y">
+                <label class="form-check-label" for="inlineRadio3">Source Y Property</label>
+              </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="card-footer gray-footer">
+            <button type="submit" class="btn btn-success btn-block">
+              <i class="fa fa-save"></i> Save Changes
+            </button>
+            <a [routerLink]="['/properties/relationships']"
+              ><button class="btn btn-danger btn-block mt-2">
+                <i class="fa fa-sign-out"></i> Back
+              </button></a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div
+      class="alert alert-info"
+      *ngIf="!registerForm.valid && registerForm.touched"
+    >
+      <strong>Information: </strong>Please enter a valid data!!
+    </div>
+  </div>
+</div>

@@ -23,6 +23,9 @@ import { PropertiesMetadataListResolver } from './_resolver/property.metadatas-l
 import { PropertyMetadataAddComponent } from './myproperties/property.metadata-add/property.metadata-add.component';
 import { PropertyMetadataEditComponent } from './myproperties/property.metadata-edit/property.metadata-edit.component';
 import { PropertyMetadataEditResolver } from './_resolver/property.metadatas-edit.resolver';
+import { PropertyRelationListComponent } from './properties_relations/property.relation-list/property.relation-list.component';
+import { PropertyRelationshipListResolver } from './_resolver/property.relationships-list.resolver';
+import { PropertyRelationAddComponent } from './properties_relations/property.relation-add/property.relation-add.component';
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     {
@@ -34,7 +37,9 @@ export const appRoutes: Routes = [
           { path: 'property/:id/edit', component: PropertyEditComponent, resolve: { property: PropertyEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'property/add', component: PropertyAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'properties', component: PropertyListComponent, resolve: { properties: PropertyListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
-          { path: 'properties/metadatas', component: PropertyMetadataListComponent, resolve: { properties: PropertiesMetadataListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'properties/metadatas', component: PropertyMetadataListComponent, resolve: { properties: PropertiesMetadataListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },          
+          { path: 'properties/relationships', component: PropertyRelationListComponent, resolve: { properties: PropertyRelationshipListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },          
+          { path: 'properties/relations/add', component: PropertyRelationAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'metadata/add', component: PropertyMetadataAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'metadata/:id/edit', component: PropertyMetadataEditComponent, resolve: { metdata: PropertyMetadataEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'kafkatopic', component: KafkaRegisterComponent, resolve: { kafkatopic: KafkaTopicResolver}, data: { roles: ['Admin', 'SourceAdmin']} },

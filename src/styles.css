@@ -98,3 +98,11 @@ div.form-group > label{
  table > tbody > tr > td{
   vertical-align: middle !important;
  }
+
+ fieldset, legend {
+  all: revert;
+}
+
+.reset {
+  all: revert;
+}

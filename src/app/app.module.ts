@@ -44,6 +44,9 @@ import { PropertyMetadataListComponent } from './myproperties/property.metadata-
 import { PropertiesMetadataListResolver } from './_resolver/property.metadatas-list.resolver';
 import { PropertyMetadataEditComponent } from './myproperties/property.metadata-edit/property.metadata-edit.component';
 import { PropertyMetadataEditResolver } from './_resolver/property.metadatas-edit.resolver';
+import { PropertyRelationListComponent } from './properties_relations/property.relation-list/property.relation-list.component';
+import { PropertyRelationshipListResolver } from './_resolver/property.relationships-list.resolver';
+import { PropertyRelationAddComponent } from './properties_relations/property.relation-add/property.relation-add.component';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -74,6 +77,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     PropertyMetadataAddComponent,
     PropertyMetadataListComponent,
     PropertyMetadataEditComponent,
+    PropertyRelationListComponent,
+    PropertyRelationAddComponent,
   ],
   imports: [
     HttpClientModule,
@@ -117,7 +122,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     KafkaTopicResolver,
     PropertyEditResolver,
     PropertiesMetadataListResolver,
-    PropertyMetadataEditResolver
+    PropertyMetadataEditResolver,
+    PropertyRelationshipListResolver
   ],
   bootstrap: [AppComponent]
 })

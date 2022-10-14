@@ -12,8 +12,8 @@ import { PropertyMetadataDetails } from '../_models/propertyMetadataDetails';
 export class PropertiesMetadataListResolver
   implements Resolve<PaginatedResult<PropertyMetadataDetails[]>>
 {
-  pageNumber = 1;
-  pageSize = 5;
+  private pageNumber = 1;
+  private pageSize = 5;
 
   constructor(
     private propertyService: PropertyMetadataService,

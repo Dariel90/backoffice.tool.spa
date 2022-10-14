@@ -25,10 +25,15 @@
             <a class="dropdown-item" [routerLink]="['/properties/metadatas']"><i class="fas fa-scroll"></i>  Properties Metadatas</a>
           </div>
         </div>
-        
-        <li class="nav-item" routerLinkActive="active" *appHasRole="['Admin']">
-          <a class="nav-link" [routerLink]="['/admin']">Admin</a>
-        </li>
+
+        <div class="dropdown mt-2" dropdown *appHasRole="['Admin']">
+          <a class="dropdown-toggle" dropdownToggle>
+            Admin
+          </a>
+          <div class="dropdown-menu mt-2" *bsDropdownMenu>
+            <a class="dropdown-item" [routerLink]="['properties/relationships']"><i class="fa far fas fa-list-ul"></i>  Properties Relationship</a>
+          </div>
+        </div>
       </ul>
   
       <div *ngIf="loggedIn()" class="dropdown" dropdown>
