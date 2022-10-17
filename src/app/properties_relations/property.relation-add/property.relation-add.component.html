@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-header bg-transparent">
           <div class="ml-5">
-            <img
+            <img alt="relationship icon logo"
               class="card-img-center img-thumbnail ml-5"
               src="../../../assets/relationship.png"
             />
@@ -56,7 +56,7 @@
             </div>
             <div class="form-group">
               <label for="sysMessage">System Message:</label>
-              <select
+              <select title="Select System Message"
                 required
                 class="form-control ml-1 flex-fill"
                 id="sysMessageId"
@@ -92,7 +92,7 @@
             </div>
             <div class="form-group">
               <label for="sysProperty">System Property:</label>
-              <select
+              <select title="Select system property"
                 required
                 class="form-control ml-1 flex-fill"
                 id="sysPropertyId"
@@ -137,7 +137,7 @@
             </div>
             <div class="form-group">
               <label for="sourceX">Source X:</label>
-              <select
+              <select title="Select the first source"
                 required
                 class="form-control ml-1 flex-fill"
                 id="sourceXId"
@@ -176,7 +176,7 @@
             </div>
             <div class="form-group">
               <label for="messageSourceX">Message Form Source X:</label>
-              <select
+              <select title="Select the message from the first source"
                 required
                 class="form-control ml-1 flex-fill"
                 id="messageSourceXId"
@@ -387,19 +387,19 @@
               <fieldset class="reset">
                 <legend class="reset">Select the strongest property:</legend>              
               <div class="form-check">
-                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="n">
-                <label class="form-check-label" for="inlineRadio3">None</label>
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="strongestProp" id="inlineRadio4" value="n">
+                <label class="form-check-label" for="inlineRadio4">None</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="s">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="strongestProp" id="inlineRadio1" value="s">
                 <label class="form-check-label" for="inlineRadio1">System Property</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="x">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="strongestProp" id="inlineRadio2" value="x">
                 <label class="form-check-label" for="inlineRadio2">Source X Property</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" formControlName="strongestProp" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="y">
+                <input class="form-check-input" formControlName="strongestProp" type="radio" name="strongestProp" id="inlineRadio3" value="y">
                 <label class="form-check-label" for="inlineRadio3">Source Y Property</label>
               </div>
               </fieldset>
@@ -411,7 +411,7 @@
               <i class="fa fa-save"></i> Save Changes
             </button>
             <a [routerLink]="['/properties/relationships']"
-              ><button class="btn btn-danger btn-block mt-2">
+              ><button type="button" class="btn btn-danger btn-block mt-2">
                 <i class="fa fa-sign-out"></i> Back
               </button></a
             >

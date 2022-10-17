@@ -51,7 +51,7 @@
               <td scope="row" class="text-center">{{ this.relationship.creationDate | date: "mediumDate" }}</td>
               <td>{{ this.relationship.dataRelationship.propertyRelationship.sourceStrongestProp?.propertyName }}</td>              
               <td class="mx-auto text-center">
-                <a [routerLink]="['/relationship/', this.relationship.relationshipId, 'edit']"
+                <a [routerLink]="['/properties/relations/', this.relationship.relationshipId, 'edit']"
                   ><button type="button" class="btn btn-info btn-sm mr-2">
                     <i class="fa fa-pencil"></i></button
                 ></a>

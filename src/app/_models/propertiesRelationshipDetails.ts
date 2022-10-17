@@ -25,6 +25,7 @@ export interface PropertyDto {
     propertyName: string;
     propertyDataType: string;
     isAForeinProp: boolean;
+    propertyMessageId: number;
 }
 
 export interface SourceStrongestProp {

@@ -44,6 +44,14 @@ export class PropertyRelationService {
       );
   }
 
+  getPropertyRelationshipDetail(relationshipId: number): Observable<SourceRelationshipDetails> {
+    const result = this.http.get<SourceRelationshipDetails>(
+      this.baseUrl +
+        `admin/GetPropertyRelationshipDetails?relationshipId=${relationshipId}`
+    );
+    return result;
+  }
+
   addOrUpdatePropertyRelationship(relation: AddUpdatePropertyRelationship) {
     return this.http.post(
       this.baseUrl + 'admin/AddOrUpdateSourcesRelationshipByProperty',

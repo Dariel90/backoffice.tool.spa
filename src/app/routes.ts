@@ -26,6 +26,8 @@ import { PropertyMetadataEditResolver } from './_resolver/property.metadatas-edi
 import { PropertyRelationListComponent } from './properties_relations/property.relation-list/property.relation-list.component';
 import { PropertyRelationshipListResolver } from './_resolver/property.relationships-list.resolver';
 import { PropertyRelationAddComponent } from './properties_relations/property.relation-add/property.relation-add.component';
+import { PropertyRelationshipEditResolver } from './_resolver/property.retalationship.resolver';
+import { PropertyRelationEditComponent } from './properties_relations/property.relation-edit/property.relation-edit.component';
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     {
@@ -40,6 +42,7 @@ export const appRoutes: Routes = [
           { path: 'properties/metadatas', component: PropertyMetadataListComponent, resolve: { properties: PropertiesMetadataListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },          
           { path: 'properties/relationships', component: PropertyRelationListComponent, resolve: { properties: PropertyRelationshipListResolver}, data: { roles: ['Admin', 'SourceAdmin']} },          
           { path: 'properties/relations/add', component: PropertyRelationAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
+          { path: 'properties/relations/:id/edit', component: PropertyRelationEditComponent, resolve: { realationshipData: PropertyRelationshipEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'metadata/add', component: PropertyMetadataAddComponent, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'metadata/:id/edit', component: PropertyMetadataEditComponent, resolve: { metdata: PropertyMetadataEditResolver}, data: { roles: ['Admin', 'SourceAdmin']} },
           { path: 'kafkatopic', component: KafkaRegisterComponent, resolve: { kafkatopic: KafkaTopicResolver}, data: { roles: ['Admin', 'SourceAdmin']} },

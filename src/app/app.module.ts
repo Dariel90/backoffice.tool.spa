@@ -47,6 +47,8 @@ import { PropertyMetadataEditResolver } from './_resolver/property.metadatas-edi
 import { PropertyRelationListComponent } from './properties_relations/property.relation-list/property.relation-list.component';
 import { PropertyRelationshipListResolver } from './_resolver/property.relationships-list.resolver';
 import { PropertyRelationAddComponent } from './properties_relations/property.relation-add/property.relation-add.component';
+import { PropertyRelationEditComponent } from './properties_relations/property.relation-edit/property.relation-edit.component';
+import { PropertyRelationshipEditResolver } from './_resolver/property.retalationship.resolver';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -79,6 +81,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     PropertyMetadataEditComponent,
     PropertyRelationListComponent,
     PropertyRelationAddComponent,
+    PropertyRelationEditComponent,
   ],
   imports: [
     HttpClientModule,
@@ -123,7 +126,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     PropertyEditResolver,
     PropertiesMetadataListResolver,
     PropertyMetadataEditResolver,
-    PropertyRelationshipListResolver
+    PropertyRelationshipListResolver,
+    PropertyRelationshipEditResolver
   ],
   bootstrap: [AppComponent]
 })
