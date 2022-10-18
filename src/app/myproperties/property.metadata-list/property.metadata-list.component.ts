@@ -5,6 +5,7 @@ import { PropertyMetadataDetails } from 'src/app/_models/propertyMetadataDetails
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { PropertyMetadataService } from 'src/app/_services/property-metadata.service';
+import { defaultPagination, numberToTypeMap } from 'src/app/_utils/utils';
 @Component({
   selector: 'app-property.metadata-list',
   templateUrl: './property.metadata-list.component.html',
@@ -13,10 +14,10 @@ import { PropertyMetadataService } from 'src/app/_services/property-metadata.ser
 export class PropertyMetadataListComponent implements OnInit {
   protected properties: PropertyMetadataDetails[];
   private pagination: Pagination;
-  protected page: number = 1;
-  protected count: number = 0;
-  protected tableSize: number = 5;
-  protected tableSizes: any = [5, 10, 50, 100];
+  protected page = defaultPagination.page;
+  protected count = defaultPagination.count;
+  protected tableSize: number = defaultPagination.tableSize;
+  protected tableSizes = defaultPagination.tableSizes;
 
   constructor(
     private alertify: AlertifyService,
@@ -56,11 +57,11 @@ export class PropertyMetadataListComponent implements OnInit {
         this.pagination.itemsPerPage
       )
       .subscribe(
-        (res: PaginatedResult<PropertyMetadataDetails[]>) => {
-          this.properties = res.result;
-          this.pagination = res.pagination;
-          this.page = res.pagination.currentPage;
-          this.count = res.pagination.totalItems;
+        (response: PaginatedResult<PropertyMetadataDetails[]>) => {
+          this.properties = response.result;
+          this.pagination = response.pagination;
+          this.page = response.pagination.currentPage;
+          this.count = response.pagination.totalItems;
         },
         (error) => {
           this.alertify.error(error);
@@ -69,25 +70,7 @@ export class PropertyMetadataListComponent implements OnInit {
   }
 
   getTypeByNumber(type: number) {
-    switch (type) {
-      case 0:
-        return 'Integer';
-      case 1:
-        return 'Float';
-      case 2:
-        return 'Double';
-      case 3:
-        return 'String';
-      case 4:
-        return 'Decimal';
-      case 5:
-        return 'Boolean';
-      case 6:
-        return 'DateTime';
-      default:
-        return '';
-        break;
-    }
+    return numberToTypeMap(type);
   }
 
   removePropertyMeta(propertyId: number) {

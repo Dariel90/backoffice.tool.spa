@@ -15,6 +15,7 @@ import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
 import { PropertyService } from 'src/app/_services/property.service';
 import { Property } from 'src/app/_models/property';
+import { numberToTypeMap } from 'src/app/_utils/utils';
 
 @Component({
   selector: 'app-property.metadata-add',
@@ -201,24 +202,6 @@ export class PropertyMetadataAddComponent implements OnInit {
   }
 
   getTypeByNumber(type: number) {
-    switch (type) {
-      case 0:
-        return 'Integer';
-      case 1:
-        return 'Float';
-      case 2:
-        return 'Double';
-      case 3:
-        return 'String';
-      case 4:
-        return 'Decimal';
-      case 5:
-        return 'Boolean';
-      case 6:
-        return 'DateTime';
-      default:
-        return '';
-        break;
-    }
+    return numberToTypeMap(type);
   }
 }

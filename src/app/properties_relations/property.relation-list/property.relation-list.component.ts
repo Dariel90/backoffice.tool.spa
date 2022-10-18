@@ -5,6 +5,7 @@ import { SourceRelationshipDetails } from 'src/app/_models/propertiesRelationshi
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { PropertyRelationService } from 'src/app/_services/property-relation.service';
+import { defaultPagination } from 'src/app/_utils/utils';
 
 @Component({
   selector: 'app-property.relation-list',
@@ -14,10 +15,10 @@ import { PropertyRelationService } from 'src/app/_services/property-relation.ser
 export class PropertyRelationListComponent implements OnInit {
   protected relationships: SourceRelationshipDetails[];
   private pagination: Pagination;
-  protected page: number = 1;
-  protected count: number = 0;
-  protected tableSize: number = 5;
-  protected tableSizes: any = [5, 10, 50, 100];
+  protected page = defaultPagination.page;
+  protected count = defaultPagination.count;
+  protected tableSize: number = defaultPagination.tableSize;
+  protected tableSizes = defaultPagination.tableSizes;
 
   constructor(
     private alertify: AlertifyService,
@@ -55,11 +56,11 @@ export class PropertyRelationListComponent implements OnInit {
         this.pagination.itemsPerPage
       )
       .subscribe(
-        (res: PaginatedResult<SourceRelationshipDetails[]>) => {
-          this.relationships = res.result;
-          this.pagination = res.pagination;
-          this.page = res.pagination.currentPage;
-          this.count = res.pagination.totalItems;
+        (response: PaginatedResult<SourceRelationshipDetails[]>) => {
+          this.relationships = response.result;
+          this.pagination = response.pagination;
+          this.page = response.pagination.currentPage;
+          this.count = response.pagination.totalItems;
         },
         (error) => {
           this.alertify.error(error);

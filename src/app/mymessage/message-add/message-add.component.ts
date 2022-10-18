@@ -47,12 +47,12 @@ export class MessageAddComponent implements OnInit {
   ngOnInit(): void {
     const sourceId: number = this.authService.getSourceFromStorage();
     this.topicService.getSourceTopic(sourceId).subscribe(
-      (res) => {
+      (response) => {
         this.newMessage = {
           name: '',
           description: '',
-          kafkaTopicId: res.id,
-          kafkaTopic: res.topicName,
+          kafkaTopicId: response.id,
+          kafkaTopic: response.topicName,
           messageId: 0,
           sourceId: sourceId,
           messageProperties: [],

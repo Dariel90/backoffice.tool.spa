@@ -9,6 +9,7 @@ import { TopicService } from 'src/app/_services/topic.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgModule } from '@angular/core';
+import { defaultPagination } from 'src/app/_utils/utils';
 
 @Component({
   selector: 'app-message-list',
@@ -18,10 +19,10 @@ import { NgModule } from '@angular/core';
 export class MessageListComponent implements OnInit {
   protected messages: Message[];
   private pagination: Pagination;
-  protected page: number = 1;
-  protected count: number = 0;
-  protected tableSize: number = 5;
-  protected tableSizes: any = [5, 10, 50, 100];
+  protected page = defaultPagination.page;
+  protected count = defaultPagination.count;
+  protected tableSize: number = defaultPagination.tableSize;
+  protected tableSizes = defaultPagination.tableSizes;
 
   constructor(
     private router: Router,
@@ -66,11 +67,11 @@ export class MessageListComponent implements OnInit {
         this.pagination.itemsPerPage
       )
       .subscribe(
-        (res: PaginatedResult<Message[]>) => {
-          this.messages = res.result;
-          this.pagination = res.pagination;
-          this.page = res.pagination.currentPage;
-          this.count = res.pagination.totalItems;
+        (response: PaginatedResult<Message[]>) => {
+          this.messages = response.result;
+          this.pagination = response.pagination;
+          this.page = response.pagination.currentPage;
+          this.count = response.pagination.totalItems;
         },
         (error) => {
           this.alertify.error(error);
