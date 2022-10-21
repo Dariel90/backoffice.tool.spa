@@ -18,9 +18,7 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.sourceId == undefined) {
-      this.sourceId = this.authService.getSourceFromStorage();
-    }
+    this.sourceId = this.authService.getSourceFromStorage();
   }
 
   login() {

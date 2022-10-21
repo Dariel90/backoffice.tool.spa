@@ -106,3 +106,7 @@ div.form-group > label{
 .reset {
   all: revert;
 }
+
+.dropdown-toggle::after{
+  margin-left:-0.15em !important;
+}

@@ -4,4 +4,5 @@ export interface RegisterUserDto{
     userName: string;
     password: string;
     sourceId: number | null;
+    sourceName: string;
 }

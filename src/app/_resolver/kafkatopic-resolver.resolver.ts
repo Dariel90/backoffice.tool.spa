@@ -20,8 +20,7 @@ export class KafkaTopicResolver implements Resolve<Message> {
     const sourceId = this.authService.getSourceFromStorage();
     return this.messageService.getSourceTopic(sourceId).pipe(
       catchError((error) => {
-        this.alertify.error('Problem retreiving data');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/kafkatopic/add']);
         return of(null);
       })
     );

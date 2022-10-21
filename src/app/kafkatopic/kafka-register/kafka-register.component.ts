@@ -65,7 +65,6 @@ export class KafkaRegisterComponent implements OnInit {
             ? `Kafaka Topic added successfully`
             : `Kafaka Topic updated successfully`
         );
-        this.editForm.reset(this.kafkaTopic);
         this.existKafkaTopicConfigured = true;
       },
       (error: string) => {

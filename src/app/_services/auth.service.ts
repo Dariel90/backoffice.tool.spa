@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginDto } from '../_models/loginDto';
 import * as moment from 'moment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LogedUserInfo, LoginResultDto } from '../_models/loginResultDto';
 import { RegisterUserDto } from '../_models/registerUserDto';
+import { UserDetailsResponse } from '../_models/registerResultDto';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +55,7 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'register', user);
   }
 
-  loggedIn() {
+  loggedIn(): boolean {
     const token = localStorage.getItem('token');
     const jwtToken = this.decodedToken;
     if (jwtToken == null) return false;

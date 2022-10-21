@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   private user: RegisterUserDto;
   @Output() cancelRegister = new EventEmitter();
   protected registerForm: FormGroup;
+  protected submitted = false;
 
   constructor(
     private authService: AuthService,
@@ -39,9 +40,10 @@ export class RegisterComponent implements OnInit {
   createRegisterForm() {
     this.registerForm = this.fb.group(
       {
-        username: ['', Validators.required],
+        userName: ['', Validators.required],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
+        sourceName: ['',Validators.required],
         password: [
           '',
           [
@@ -62,27 +64,36 @@ export class RegisterComponent implements OnInit {
       : { mismatch: true };
   }
 
-  register() {
-    if (this.registerForm.valid) {
-      this.user = Object.assign({}, this.registerForm.value);
-      this.authService.register(this.user).subscribe(
-        () => {
-          this.alertify.success('Registration successfully');
-        },
-        (error: any) => {
-          this.alertify.error(error);
-        },
-        () => {
-          const userForLogin: LoginDto = {
-            username: this.user.userName,
-            password: this.user.password,
-          };
-          this.authService.login(userForLogin).subscribe(() => {
-            this.router.navigate(['/source']);
-          });
-        }
-      );
+  onSubmit(): void {
+    this.submitted = true;
+
+    if (this.registerForm.invalid) {
+      return;
     }
+    const formParam = Object.assign({}, this.registerForm.value);
+    this.user = {
+      firstName: formParam.firstName,
+      lastName: formParam.lastName,
+      password: formParam.password,
+      sourceName: formParam.sourceName,
+      userName: formParam.userName,
+      sourceId: null
+    }
+    this.authService.register(this.user).subscribe(() => {
+      this.alertify.success('Registration successfully');
+    }, error => {
+      this.alertify.error(error);
+    }, () => {
+      const userForLogin: LoginDto = {
+        username: this.user.userName,
+        password: this.user.password,
+      };
+      this.authService.login(userForLogin).subscribe(() => {
+        const sourceId = this.authService.getSourceFromStorage();
+        this.router.navigate(['/source/',sourceId]);
+      });
+    });
+    
   }
 
   cancel() {
