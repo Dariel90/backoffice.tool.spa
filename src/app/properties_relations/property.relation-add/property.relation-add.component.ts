@@ -97,14 +97,14 @@ export class PropertyRelationAddComponent implements OnInit {
   }
 
   loadSources() {
-    this.sourceService.getAllSources().subscribe((res) => {
-      this.sources = res;
+    this.sourceService.getAllSources().subscribe((response) => {
+      this.sources = response;
     });
   }
 
   loadSysMessages() {
-    this.messageService.getAllMessages(null).subscribe((res) => {
-      this.systemMessages = res;
+    this.messageService.getAllMessages(null).subscribe((response) => {
+      this.systemMessages = response;
     });
   }
 
@@ -113,8 +113,8 @@ export class PropertyRelationAddComponent implements OnInit {
       const systemMessageId = e.target.value as number;
       this.propertyService
         .getMessageProperties(false, systemMessageId)
-        .subscribe((res) => {
-          this.systemProperties = res;
+        .subscribe((response) => {
+          this.systemProperties = response;
         });
     } else {
       this.systemProperties = [];
@@ -124,8 +124,8 @@ export class PropertyRelationAddComponent implements OnInit {
   loadMessageFormSourceX(e: any) {
     if (e.target.value != '') {
       const sourceId: number = Number(e.target.value) as number;
-      this.messageService.getAllMessages(sourceId).subscribe((res) => {
-        this.messagesFromSourceX = res;
+      this.messageService.getAllMessages(sourceId).subscribe((response) => {
+        this.messagesFromSourceX = response;
         this.selecedSourceXId = sourceId;
       });
     } else {
@@ -146,8 +146,8 @@ export class PropertyRelationAddComponent implements OnInit {
             sameSourceIsForbidden: null,
           });
           this.registerForm.controls['sourceY'].updateValueAndValidity();
-          this.messageService.getAllMessages(sourceId).subscribe((res) => {
-            this.messagesFromSourceY = res;
+          this.messageService.getAllMessages(sourceId).subscribe((response) => {
+            this.messagesFromSourceY = response;
           });
         }
       }
@@ -161,8 +161,8 @@ export class PropertyRelationAddComponent implements OnInit {
       const messageId: number = Number(e.target.value) as number;
       this.propertyService
         .getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.propertiesFromSourceX = res;
+        .subscribe((response) => {
+          this.propertiesFromSourceX = response;
         });
     } else {
       this.propertiesFromSourceX = [];
@@ -174,8 +174,8 @@ export class PropertyRelationAddComponent implements OnInit {
       const messageId: number = Number(e.target.value) as number;
       this.propertyService
         .getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.propertiesFromSourceY = res;
+        .subscribe((response) => {
+          this.propertiesFromSourceY = response;
         });
     } else {
       this.propertiesFromSourceY = [];
