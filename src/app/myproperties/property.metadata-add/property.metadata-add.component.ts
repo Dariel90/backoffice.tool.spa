@@ -76,8 +76,8 @@ export class PropertyMetadataAddComponent implements OnInit {
   ngOnInit(): void {
     this.initilizeFormGroup();
     this.sourceId = this.authService.getSourceFromStorage();
-    this.messageService.getAllMessages(this.sourceId).subscribe((res) => {
-      this.messages = res;
+    this.messageService.getAllMessages(this.sourceId).subscribe((response) => {
+      this.messages = response;
     });
   }
 
@@ -142,8 +142,8 @@ export class PropertyMetadataAddComponent implements OnInit {
       const messageId: number = Number(e.target.value) as number;
       this.propertyService
         .getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.properties = res;
+        .subscribe((response) => {
+          this.properties = response;
         });
     } else {
       this.properties = [];

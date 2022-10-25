@@ -83,11 +83,11 @@ export class PropertyAddComponent implements OnInit {
     this.initilizeFormGroup();
 
     this.sourceId = this.authService.getSourceFromStorage();
-    this.messageService.getAllMessages(this.sourceId).subscribe((res) => {
-      this.messages = res;
+    this.messageService.getAllMessages(this.sourceId).subscribe((response) => {
+      this.messages = response;
     });
-    this.messageService.getAllMessages(null).subscribe((res) => {
-      this.systemMessages = res;
+    this.messageService.getAllMessages(null).subscribe((response) => {
+      this.systemMessages = response;
     });
   }
 
@@ -153,8 +153,8 @@ export class PropertyAddComponent implements OnInit {
       const systemMessageId =  e.target.value as number;
       this.propertyService
         .getMessageProperties(false, systemMessageId)
-        .subscribe((res) => {
-          this.systemProperties = res;
+        .subscribe((response) => {
+          this.systemProperties = response;
         });
     }else{
       this.systemProperties = []
@@ -165,8 +165,8 @@ export class PropertyAddComponent implements OnInit {
     const messageId = e.target.value as number;
     this.propertyService
       .getMessageProperties(true, messageId)
-      .subscribe((res) => {
-        this.forbiddenPropertyNames = res.map(x => (x.name));
+      .subscribe((response) => {
+        this.forbiddenPropertyNames = response.map(x => (x.name));
       });
   }
 

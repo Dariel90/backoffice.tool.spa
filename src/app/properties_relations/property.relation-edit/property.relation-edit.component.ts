@@ -118,14 +118,14 @@ export class PropertyRelationEditComponent implements OnInit {
   }
 
   loadSources() {
-    this.sourceService.getAllSources().subscribe((res) => {
-      this.sources = res;
+    this.sourceService.getAllSources().subscribe((response) => {
+      this.sources = response;
     });
   }
 
   loadSysMessages(data: any) {
-    this.messageService.getAllMessages(null).subscribe((res) => {
-      this.systemMessages = res;
+    this.messageService.getAllMessages(null).subscribe((response) => {
+      this.systemMessages = response;
       const sysMessageId = data['realationshipData'].dataRelationship.propertyRelationship.systemProperty.propertyMessageId;
       const sourceXId = data['realationshipData'].dataRelationship.sourceXId;
       const sourceYId = data['realationshipData'].dataRelationship.sourceYId;
@@ -134,30 +134,30 @@ export class PropertyRelationEditComponent implements OnInit {
       //loadSystemMessageProperties
       this.propertyService
         .getMessageProperties(false, sysMessageId)
-        .subscribe((res) => {
-          this.systemProperties = res;
+        .subscribe((response) => {
+          this.systemProperties = response;
         });
 
       //loadMessageFormSourceX
-      this.messageService.getAllMessages(sourceXId).subscribe((res) => {
-        this.messagesFromSourceX = res;
+      this.messageService.getAllMessages(sourceXId).subscribe((response) => {
+        this.messagesFromSourceX = response;
         this.selecedSourceXId = sourceXId;
         //loadMessagePropertiesFromSourceX;
         this.propertyService
         .getMessageProperties(true, messageSourceXId)
-        .subscribe((res) => {
-          this.propertiesFromSourceX = res;
+        .subscribe((response) => {
+          this.propertiesFromSourceX = response;
         });
       });
 
       //loadMessageFormSourceY;
-      this.messageService.getAllMessages(sourceYId).subscribe((res) => {
-        this.messagesFromSourceY = res;
+      this.messageService.getAllMessages(sourceYId).subscribe((response) => {
+        this.messagesFromSourceY = response;
         //loadMessagePropertiesFromSourceY
         this.propertyService
         .getMessageProperties(true, messageSourceYId)
-        .subscribe((res) => {
-          this.propertiesFromSourceY = res;
+        .subscribe((response) => {
+          this.propertiesFromSourceY = response;
           this.initilizeFormGroup(data, false);
         });
       });
@@ -170,8 +170,8 @@ export class PropertyRelationEditComponent implements OnInit {
       const systemMessageId = e.target.value as number;
       this.propertyService
         .getMessageProperties(false, Number(systemMessageId))
-        .subscribe((res) => {
-          this.systemProperties = res;
+        .subscribe((response) => {
+          this.systemProperties = response;
         });
     } else {
       this.systemProperties = [];
@@ -181,8 +181,8 @@ export class PropertyRelationEditComponent implements OnInit {
   loadMessageFormSourceX(e: any) {
     if (e.target.value != '') {
       const sourceId: number = Number(e.target.value) as number;
-      this.messageService.getAllMessages(sourceId).subscribe((res) => {
-        this.messagesFromSourceX = res;
+      this.messageService.getAllMessages(sourceId).subscribe((response) => {
+        this.messagesFromSourceX = response;
         this.selecedSourceXId = sourceId;
       });
     } else {
@@ -203,8 +203,8 @@ export class PropertyRelationEditComponent implements OnInit {
             sameSourceIsForbidden: null,
           });
           this.registerForm.controls['sourceY'].updateValueAndValidity();
-          this.messageService.getAllMessages(sourceId).subscribe((res) => {
-            this.messagesFromSourceY = res;
+          this.messageService.getAllMessages(sourceId).subscribe((response) => {
+            this.messagesFromSourceY = response;
           });
         }
       }
@@ -218,8 +218,8 @@ export class PropertyRelationEditComponent implements OnInit {
       const messageId: number = Number(e.target.value) as number;
       this.propertyService
         .getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.propertiesFromSourceX = res;
+        .subscribe((response) => {
+          this.propertiesFromSourceX = response;
         });
     } else {
       this.propertiesFromSourceX = [];
@@ -231,8 +231,8 @@ export class PropertyRelationEditComponent implements OnInit {
       const messageId: number = Number(e.target.value) as number;
       this.propertyService
         .getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.propertiesFromSourceY = res;
+        .subscribe((response) => {
+          this.propertiesFromSourceY = response;
         });
     } else {
       this.propertiesFromSourceY = [];

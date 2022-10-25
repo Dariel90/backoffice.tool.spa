@@ -95,13 +95,13 @@ export class PropertyMetadataEditComponent implements OnInit {
         propertyReplaceValue: data['metdata'].propertyMetadata.propertyReplaceValue,
         propertyReplaceValueDataType: data['metdata'].propertyMetadata.propertyReplaceValueDataType,
       };
-      this.messageService.getAllMessages(this.sourceId).subscribe((res) => {
-        this.messages = res;
+      this.messageService.getAllMessages(this.sourceId).subscribe((response) => {
+        this.messages = response;
         this.propertyService
         const messageId: number = Number(data['metdata'].property.propertyMessageId);
         this.propertyService.getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.properties = res;
+        .subscribe((response) => {
+          this.properties = response;
           this.initilizeFormGroup(messageId);
         });
         
@@ -157,8 +157,8 @@ export class PropertyMetadataEditComponent implements OnInit {
       const messageId: number = Number(e.target.value) as number;
       this.propertyService
         .getMessageProperties(true, messageId)
-        .subscribe((res) => {
-          this.properties = res;
+        .subscribe((response) => {
+          this.properties = response;
         });
     } else {
       this.properties = [];

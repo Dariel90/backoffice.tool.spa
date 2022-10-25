@@ -99,21 +99,21 @@ export class PropertyEditComponent implements OnInit {
     this.isAnEditionOfAnExternalProperty =
       this.editProperty.myPropertyId != null && this.sourceId != null;
 
-    this.messageService.getAllMessages(this.sourceId).subscribe((res) => {
-      this.messages = res;
+    this.messageService.getAllMessages(this.sourceId).subscribe((response) => {
+      this.messages = response;
     });
     if (this.isAnEditionOfAnExternalProperty) {
       this.messageService
         .getMessageFromProperty(this.editProperty.myPropertyId as number)
-        .subscribe((res) => {
-          this.systemMessage = res;
+        .subscribe((response) => {
+          this.systemMessage = response;
           this.loadSystemProperties(this.systemMessage.id);
           this.loadForbbidenProperties(this.editProperty.messageId);
           this.initilizeFormGroup();
         });
     }
-    this.messageService.getAllMessages(null).subscribe((res) => {
-      this.systemMessages = res;
+    this.messageService.getAllMessages(null).subscribe((response) => {
+      this.systemMessages = response;
     });
 
     this.applyCondionalValidators();
@@ -229,8 +229,8 @@ export class PropertyEditComponent implements OnInit {
   private loadSystemProperties(systemMessageId: number) {
     this.propertyService
       .getMessageProperties(false, systemMessageId)
-      .subscribe((res) => {
-        this.systemProperties = res;
+      .subscribe((response) => {
+        this.systemProperties = response;
       });
   }
 
@@ -242,8 +242,8 @@ export class PropertyEditComponent implements OnInit {
   loadForbbidenProperties(messageId: number) {
     this.propertyService
       .getMessageProperties(true, messageId)
-      .subscribe((res) => {
-        this.forbiddenPropertyNames = res.map((x) => x.name);
+      .subscribe((response) => {
+        this.forbiddenPropertyNames = response.map((x) => x.name);
       });
   }
 
