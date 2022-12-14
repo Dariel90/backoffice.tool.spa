@@ -1,9 +1,9 @@
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../_models/user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LoginDto } from '../_models/loginDto';
 import * as moment from 'moment';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -32,6 +32,9 @@ export class AuthService {
         if (user) {
           this.setSession(response);
         }
+      }),catchError((error) => {
+        console.log(error)
+        return of(error.error);
       })
     );
   }
@@ -47,7 +50,9 @@ export class AuthService {
   }
 
   getSourceFromStorage(): number {
-    const user = JSON.parse(this.getUser() as string);
+    const usrStr = this.getUser() as string;
+    if(usrStr == "" || usrStr == null) return 0;
+    const user = JSON.parse(usrStr);
     return user.sourceId as number;
   }
 

@@ -4,8 +4,12 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5001/api/',
+  apiUrl: 'http://localhost/backoffice-admin-api/api/',
 };
+// export const environment = {
+//   production: false,
+//   apiUrl: 'https://localhost:5001/api/',
+// };
 
 
 /*

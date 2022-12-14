@@ -13,7 +13,7 @@ import { appRoutes } from './routes';
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { AuthGuard } from './_guards/auth.guard';
-import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { ErrorInterceptor } from './_services/error.interceptor';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { PropertyListComponent } from './myproperties/property-list/property-list.component';
@@ -49,6 +49,7 @@ import { PropertyRelationshipListResolver } from './_resolver/property.relations
 import { PropertyRelationAddComponent } from './properties_relations/property.relation-add/property.relation-add.component';
 import { PropertyRelationEditComponent } from './properties_relations/property.relation-edit/property.relation-edit.component';
 import { PropertyRelationshipEditResolver } from './_resolver/property.retalationship.resolver';
+import { environment } from 'src/environments/environment';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   override overrides = {
@@ -97,10 +98,10 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       config: {
         tokenGetter:  () => localStorage.getItem('token'),
         authScheme: 'Bearer ',
-        allowedDomains:['https://localhost:5001'],
+        allowedDomains:['https://localhost:5001',environment.apiUrl],
         skipWhenExpired: true,
         throwNoTokenError: true,
-        disallowedRoutes: ['https://localhost:5001/api/auth/']
+        disallowedRoutes: ['https://localhost:5001/api/auth/',environment.apiUrl+'auth/login',environment.apiUrl+'auth/register']
       }
     }),
   ],
@@ -111,12 +112,12 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     AlertifyService,
     AlertifyService,
     AuthGuard,
-    ErrorInterceptorProvider,
     PreventUnsavedChanges,
     {
       provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     PropertyListResolver,
     SourceEditResolver,
     SourceDetailsResolver,

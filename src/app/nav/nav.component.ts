@@ -18,7 +18,9 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.sourceId = this.authService.getSourceFromStorage();
+    const sourceId = this.authService.getSourceFromStorage();
+    if(sourceId != 0)
+      this.sourceId = sourceId as number;
   }
 
   login() {
@@ -28,6 +30,7 @@ export class NavComponent implements OnInit {
         this.alertify.success('Logged Successfully');
       },
       (error) => {
+        console.log(error);
         this.alertify.error(error);
       },
       () => {
